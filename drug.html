@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Healthy Pharmacy</title>
+        <!--link href="style.css" rel="stylesheet" type="text/css"--> 
+    </head>
+    <body>
+        <div id="header">
+            <h1>Healthy Pharmacy</h1>
+        </div>
+        <nav class="menu" style="float:left;height:100%;width:200px;background-color: #18EF62;">
+            <ul style="height:800px;">
+                <li class="navi"><a href="index.html">Home</a></li>
+                <li class="navi"><a href="drug.html">Drugs</a></li>
+                <li class="navi"><a href="customer.html">Customers</a></li>
+                <li class="navi"><a href="order.html">Orders</a></li>
+                <li class="navi"><a href="sale.html">Sales</a></li>
+            </ul>
+        </nav>
+        <div id="search">
+            <fieldset style="border-color: #18EF62;">
+                <legend style="font-size: 30px">Search</legend>
+                <br><label>Input drug's name: <input type="text" name="drug"></label>
+                <button type="submit" id = "searchItem">Search</button>
+                </br>
+                <br>
+                <label>Input drug's ID: <input type="text" name="drug_id"></label>
+                <button type="submit" id = "searchItem">Search</button>
+                </br>
+            </fieldset>
+        </div>
+        <div id="add">
+            <fieldset style="border-color:  #18EF62;">
+                <legend style="font-size: 30px">Add drugs</legend>
+                <label>Name: <input type="text" name="drug"></label>
+                <label>ID: <input type="text" name="drug_id"></label>
+                <label>Price: <input type="text" name="price"></label>
+                <label>Strength: <input type="text" name="strength"></label>
+                <button type="submit" id = "addItem">Add</button>
+            </fieldset>
+        </div>
+        <div id="delete">
+            <fieldset style="border-color:  #18EF62;">
+                <br>
+                <legend style="font-size: 30px">Delete drugs</legend>
+                <label>Name: <input type="text" name="drug"></label>
+                <button type="submit" id = "deleteItem">Delete</button></br><br>
+                <label>ID: <input type="text" name="drug_id"></label>
+                <button type="submit" id = "deleteItem">Delete</button> </br>
+            </fieldset>
+        </div>
+        <!--It will generate a list for existing item-->
+        <table border="1" id= "existD">
+            <legend style="font-size: 30px">List of Drugs</legend>
+            <tr>
+                <td></td>
+                <td>Name</td>
+                <td>ID</td>
+                <td>Price</td>
+                <td>Strength</td>
+                <td>Inventory</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>Alcohol</td>
+                <td>0000</td>
+                <td>10000$</td>
+                <td>null</td>
+                <td>Infinity</td>
+            </tr>
+        </table>
+        <div id="footer" style="bottom: 0px;width:100%;position:fixed;background-color:#D8D5CE;clear:both;text-align:center">
+            copyright: group 47 xxx-xxx-xxxx
+        </div>
+    </body>
+</html>

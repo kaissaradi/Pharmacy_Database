@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Healthy Pharmacy</title>
+        <!--link href="style.css" rel="stylesheet" type="text/css"--> 
+    </head>
+    <body>
+        <div id="header">
+            <h1>Healthy Pharmacy</h1>
+        </div>
+        <nav class="menu" style="float:left;height:100%;width:200px;background-color: #18EF62;">
+            <ul style="height:800px;">
+                <li class="navi"><a href="index.html">Home</a></li>
+                <li class="navi"><a href="drug.html">Drugs</a></li>
+                <li class="navi"><a href="customer.html">Customers</a></li>
+                <li class="navi"><a href="order.html">Orders</a></li>
+                <li class="navi"><a href="sale.html">Sales</a></li>
+            </ul>
+        </nav>
+        <div id="searchC">
+            <fieldset style="border-color: #18EF62;">
+                <legend style="font-size: 30px">Search Customers</legend>
+                <br><label>Last Name:<input type="text" name="lname"></label>
+                <label>First Nmae:<input type="text" name="fname"></label>
+                <button type="submit" id = "searchC">Search</button>
+                </br><br>
+                <label>Customer's id: <input type="text" name="customer_id"></label>
+                <button type="submit" id = "searchC">Search</button>
+                </br><br>
+                <label>Customer's Email: <input type="text" name="customer_email"></label>
+                <button type="submit" id = "searchC">Search</button>
+                </br><br>
+                <label>Customer's address: <input type="text" name="customer_address"></label>
+                <button type="submit" id = "searchC">Search</button>
+                </br>
+            </fieldset>
+        </div>
+        <div id="addC">
+            <fieldset style="border-color:  #18EF62;">
+                <legend style="font-size: 30px">Add Customers</legend>
+                <label>Last Name: <input type="text" name="lname"></label>
+                <label>First Name: <input type="text" name="fname"></label>
+                <label>ID: <input type="text" name="customer_id"></label>
+                <label>Age: <input type="text" name="customer_id"></label>
+                <label>Gender: <input type="text" name="customer_gender"></label>
+                <label>Eamil: <input type="text" name="customer_email"></label>
+                <label>Address: <input type="text" name="customer_address"></label>
+                <button type="submit" id = "addC">Add</button>
+            </fieldset>
+        </div>
+        <div id="deleteC">
+            <fieldset style="border-color:  #18EF62;">
+                <legend style="font-size: 30px">Delete Customers</legend>
+                <br><label>Last Name:<input type="text" name="lname"></label>
+                <label>First Nmae:<input type="text" name="fname"></label>
+                <button type="submit" id = "deledc">Delete</button>
+                </br><br>
+                <label>Customer's id: <input type="text" name="customer_id"></label>
+                <button type="submit" id = "deleteC">Delete</button>
+                </br><br>
+                <label>Customer's Email: <input type="text" name="customer_email"></label>
+                <button type="submit" id = "deleteC">Delete</button>
+                </br><br>
+                <label>Customer's address: <input type="text" name="customer_address"></label>
+                <button type="submit" id = "deleteC">Delete</button>
+            </fieldset>
+        </div>
+        <table border="1" id= "existC">
+            <legend style="font-size: 30px">List of Customers</legend>
+            <tr>
+                <td></td>
+                <td>Last Name</td>
+                <td>First Name</td>
+                <td>ID</td>
+                <td>Age</td>
+                <td>Gender</td>
+                <td>Email</td>
+                <td>Address</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>Trump</td>
+                <td>Donald</td>
+                <td>0001</td>
+                <td>73</td>
+                <td>Male</td>
+                <td>null</td>
+                <td></td>
+            </tr>
+        </table>
+
+        <div id="footer" style="bottom: 0px;width:100%;position:fixed;background-color:#D8D5CE;clear:both;text-align:center">
+            copyright: group 47 xxx-xxx-xxxx
+        </div>
+    </body>
+</html>

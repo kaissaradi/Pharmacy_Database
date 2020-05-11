@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Healthy Pharmacy</title>
+        <!--link href="style.css" rel="stylesheet" type="text/css"--> 
+    </head>
+    <body>
+        <div id="header">
+            <h1>Healthy Pharmacy</h1>
+        </div>
+        <nav class="menu" style="float:left;height:100%;width:200px;background-color: #18EF62;">
+            <ul style="height:800px;">
+                <li class="navi"><a href="index.html">Home</a></li>
+                <li class="navi"><a href="drug.html">Drugs</a></li>
+                <li class="navi"><a href="customer.html">Customers</a></li>
+                <li class="navi"><a href="order.html">Orders</a></li>
+                <li class="navi"><a href="sale.html">Sales</a></li>
+            </ul>
+        </nav>
+        <div id="searchO">
+            <fieldset style="border-color: #18EF62;">
+                <legend style="font-size: 30px">Search Orders</legend>
+                <br><label>Last Name:<input type="text" name="lname"></label>
+                <label>First Nmae:<input type="text" name="fname"></label>
+                <button type="submit" id = "searchO">Search</button>
+                </br><br>
+                <label>Customer's id: <input type="text" name="customer_id"></label>
+                <button type="submit" id = "searchO">Search</button>
+                </br><br>
+                <label>Customer's Email: <input type="text" name="customer_email"></label>
+                <button type="submit" id = "searchO">Search</button>
+                </br><br>
+                <label>Customer's address: <input type="text" name="customer_address"></label>
+                <button type="submit" id = "searchO">Search</button>
+                </br><br>
+                <label>Order ID: <input type="text" name="order_id"></label>
+                <button type="submit" id = "searchO">Search</button>
+                </br><br>
+                <label>Drug's name: <input type="text" name="drug"></label>
+                <label>Drug's name: <input type="text" name="drug"></label>
+                <label>Drug's name: <input type="text" name="drug"></label>
+                <button type="submit" id = "searchO">Search</button>
+                </br>
+            </fieldset>
+        </div>
+        <div id="addO">
+            <!--after adding, there will be a order id be generated-->
+            <fieldset style="border-color:  #18EF62;">
+                <legend style="font-size: 30px">Add Orders</legend>
+                <label>Last Name: <input type="text" name="lname"></label>
+                <label>First Name: <input type="text" name="fname"></label>
+                <label>Customer's ID: <input type="text" name="customer_id"></label>
+                <label>Eamil: <input type="text" name="customer_email"></label>
+                <label>Address: <input type="text" name="customer_address"></label>
+                <label><table border="1" id= "existO">
+                    <tr>
+                        <td>Drug's name <input type="text" name="order_drug_name"></td>
+                        <td>Drug's ID <input type="text" name="order_drug_id"></td>
+                        <td>Num <input type="text" name="order_num"></td>
+                        <td>Price <input type="text" name="order_price"></td>
+                        <td>Time <input type="text" name="order_time"></td>
+                    </tr></table>
+                    <table border="1" id= "existO">
+                    <tr>
+                        <td>Drug's name <input type="text" name="order_drug_name"></td>
+                        <td>Drug's ID <input type="text" name="order_drug_id"></td>
+                        <td>Num <input type="text" name="order_num"></td>
+                        <td>Price <input type="text" name="order_price"></td>
+                        <td>Time <input type="text" name="order_time"></td>
+                    </tr></table></label>
+                <button type="submit" id = "addO">Add</button>
+            </fieldset>
+        </div>
+        <div id="deleteO">
+            <fieldset style="border-color:  #18EF62;">
+                <legend style="font-size: 30px">Delete Orders</legend>
+                <label>Order ID<input type="text" name="order_id"></label>
+                <button type="submit" id = "deleteO">Delete</button>
+            </fieldset>
+        </div>
+        <table border="1" id= "existO">
+            <legend style="font-size: 30px">List of Orders</legend>
+            <tr>
+                <td></td>
+                <td>Order ID</td>
+                <td>00000000</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>Order ID</td>
+                <td>00000001</td>
+            </tr>
+        </table>
+        <div id="footer" style="bottom: 0px;width:100%;position:fixed;background-color:#D8D5CE;clear:both;text-align:center">
+            copyright: group 47 xxx-xxx-xxxx
+        </div>
+    </body>
+</html>
