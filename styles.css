@@ -1,0 +1,33 @@
+body{
+    position: relative;
+    min-height: 100vh;
+    overflow-y: scroll;
+    max-width: 100%;
+    overflow-x: hidden;
+    padding: 0px;
+    text-align: center;
+}
+#body{
+    overflow-x: hidden;
+    text-align: center;
+}
+
+#form-group{
+    float: left;
+}
+
+nav{
+    background-color: rgb(21, 197, 82);
+    color: antiquewhite;
+}
+a{
+    color: antiquewhite;
+}
+
+footer {
+    text-align: center;
+    border-top: 10px solid white;
+    background-color: rgb(21, 197, 82);
+    padding: 10px;
+    color: antiquewhite;
+}

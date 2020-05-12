@@ -3,27 +3,36 @@
     <head>
         <meta charset="utf-8">
         <title>Healthy Pharmacy</title>
-        <!--link href="style.css" rel="stylesheet" type="text/css"--> 
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="
+            sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link href="styles.css" rel="stylesheet" type="text/css"> 
     </head>
     <body>
-        <div id="header">
-            <h1>Healthy Pharmacy</h1>
-        </div>
-        <nav class="menu" style="float:left;height:100%;width:200px;background-color: #18EF62;">
-            <ul style="height:800px;">
-                <li class="navi"><a href="index.html">Home</a></li>
-                <li class="navi"><a href="drug.html">Drugs</a></li>
-                <li class="navi"><a href="customer.html">Customers</a></li>
-                <li class="navi"><a href="order.html">Orders</a></li>
-                <li class="navi"><a href="sale.html">Sales</a></li>
-            </ul>
-        </nav>
-        <div id="content" style="float:left;">
+        <header class="container" id="header">
+            <div class="row">
+                <div class="col-8" style="float: left;">
+                    <h1>Saradi-Wang Pharmacy</h1>
+                </div>
+                <div class="col-4" style="float: right;">
+                    <h4>Pharmacy ID: </h4>
+                </div>
+            </div>
+            <nav class="navbar navbar-expand">
+                <div class="collapse navbar-collapse" id="nav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="drug.html">Drugs</a></li>
+                        <li class="nav-item"><a class="nav-link" href="patient.html">Patients</a></li>
+                        <li class="nav-item"><a class="nav-link" href="order.html">Orders</a></li>
+                        <li class="nav-item"><a class="nav-link" href="sale.html">Sales</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <div class="container" id="body">
             <h3>Pharmacy's location:</h3>
-            <h3>Pharmacy's ID:</h3>
-        </div>
-        <div id="footer" style="bottom: 0px;width:100%;position:fixed;background-color:#D8D5CE;clear:both;text-align:center">
-            copyright: group 47 xxx-xxx-xxxx
+            <footer>Group 47</footer>
         </div>
     </body>
 </html>
