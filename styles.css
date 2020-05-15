@@ -16,7 +16,7 @@ body{
     float: left;
 }
 
-nav{
+.navbar{
     background-color: rgb(21, 197, 82);
     color: antiquewhite;
 }
@@ -25,6 +25,10 @@ a{
 }
 
 footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
     text-align: center;
     border-top: 10px solid white;
     background-color: rgb(21, 197, 82);
