@@ -7,19 +7,15 @@ body{
     padding: 0px;
     text-align: center;
 }
-#body{
-    overflow-x: hidden;
-    text-align: center;
+.container-fluid{
+    padding-bottom: 50px;
 }
-
-#form-group{
-    float: left;
-}
-
 .navbar{
     background-color: rgb(21, 197, 82);
     color: antiquewhite;
+    width: 100%;
 }
+
 a{
     color: antiquewhite;
 }
@@ -32,6 +28,5 @@ footer {
     text-align: center;
     border-top: 10px solid white;
     background-color: rgb(21, 197, 82);
-    padding: 10px;
     color: antiquewhite;
 }

@@ -28,68 +28,75 @@
                 </div>
             </div>
         </header>
-        <div class="container" id="body">
-            <div id="searchO">
-                <fieldset style="border-color: #18EF62;">
-                    <legend style="font-size: 30px">Search Orders</legend>
-                    <br><label>Last Name:<input type="text" name="lname"></label>
-                    <label>First Nmae:<input type="text" name="fname"></label>
-                    <button type="submit" id = "searchO">Search</button>
-                    </br><br>
-                    <label>Patient's id: <input type="text" name="Patient_id"></label>
-                    <button type="submit" id = "searchO">Search</button>
-                    </br><br>
-                    <label>Patient's Email: <input type="text" name="Patient_email"></label>
-                    <button type="submit" id = "searchO">Search</button>
-                    </br><br>
-                    <label>Patient's address: <input type="text" name="Patient_address"></label>
-                    <button type="submit" id = "searchO">Search</button>
-                    </br><br>
-                    <label>Order ID: <input type="text" name="order_id"></label>
-                    <button type="submit" id = "searchO">Search</button>
-                    </br><br>
-                    <label>Drug's name: <input type="text" name="drug"></label>
-                    <label>Drug's name: <input type="text" name="drug"></label>
-                    <label>Drug's name: <input type="text" name="drug"></label>
-                    <button type="submit" id = "searchO">Search</button>
-                    </br>
-                </fieldset>
-            </div>
-            <div id="addO">
-                <!--after adding, there will be a order id be generated-->
-                <fieldset style="border-color:  #18EF62;">
-                    <legend style="font-size: 30px">Add Orders</legend>
-                    <label>Last Name: <input type="text" name="lname"></label>
-                    <label>First Name: <input type="text" name="fname"></label>
-                    <label>Patient's ID: <input type="text" name="Patient_id"></label>
-                    <label>Eamil: <input type="text" name="Patient_email"></label>
-                    <label>Address: <input type="text" name="Patient_address"></label>
-                    <label><table border="1" id= "existO">
-                        <tr>
-                            <td>Drug's name <input type="text" name="order_drug_name"></td>
-                            <td>Drug's ID <input type="text" name="order_drug_id"></td>
-                            <td>Num <input type="text" name="order_num"></td>
-                            <td>Price <input type="text" name="order_price"></td>
-                            <td>Time <input type="text" name="order_time"></td>
-                        </tr></table>
-                        <table border="1" id= "existO">
-                        <tr>
-                            <td>Drug's name <input type="text" name="order_drug_name"></td>
-                            <td>Drug's ID <input type="text" name="order_drug_id"></td>
-                            <td>Num <input type="text" name="order_num"></td>
-                            <td>Price <input type="text" name="order_price"></td>
-                            <td>Time <input type="text" name="order_time"></td>
-                        </tr></table></label>
-                    <button type="submit" id = "addO">Add</button>
-                </fieldset>
-            </div>
-            <div id="deleteO">
-                <fieldset style="border-color:  #18EF62;">
-                    <legend style="font-size: 30px">Delete Orders</legend>
-                    <label>Order ID<input type="text" name="order_id"></label>
-                    <button type="submit" id = "deleteO">Delete</button>
-                </fieldset>
-            </div>
+        <div class="container-fluid" id="body">
+            <form class="col-12" id="search">
+                <legend class="">Search Orders</legend>
+                <div class="form-group row">
+                    <label for="searchD" class="col-form-label">Last Name</label>
+                    <div class="col-3">
+                        <input type="text" name="first" class="form-control" placeholder="Smith">
+                    </div><br>
+                    <label for="searchD" class="col-form-label">First Name</label>
+                    <div class="col-3">
+                        <input type="text" name="last" class="form-control" placeholder="Bob">
+                    </div>
+                    <label for="searchD" class="col-form-label">Drug Name</label>
+                    <div class="col-3">
+                        <input type="text" name="drug" class="form-control" placeholder="Drug Name">
+                    </div>
+                    <button type="submit" id="searchP" class="btn btn-success">Search</button>
+                </div>
+            </form>
+            <form class="col-12" id="search">
+                <legend class="">Create A New Order</legend>
+                <div class="form-group row">
+                    <label for="addD" class="col-form-label">Last Name</label>
+                    <div class="col-3">
+                        <input type="text" name="first" class="form-control" placeholder="Smith">
+                    </div><br>
+                    <label for="addD" class="col-form-label">First Name</label>
+                    <div class="col-3">
+                        <input type="text" name="last" class="form-control" placeholder="Bob">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="addD" class="col-form-label">Drug Name</label>
+                    <div class="col-3">
+                        <input type="text" name="drug" class="form-control" placeholder="Drug Name">
+                    </div>
+                    <label for="addD" class="col-form-label">Drug NDC</label>
+                    <div class="col-3">
+                        <input type="number" name="NDC" class="form-control" placeholder="xxxxx-xxxx-xx">
+                    </div>
+                    <button type="submit" id="addD" class="btn btn-success">Create</button>
+                </div>
+            </form>
+            <table border="1" id= "existO">
+                <tr>
+                    <td>Drug's name <input type="text" name="order_drug_name"></td>
+                    <td>Drug's ID <input type="text" name="order_drug_id"></td>
+                    <td>Num <input type="text" name="order_num"></td>
+                    <td>Price <input type="text" name="order_price"></td>
+                    <td>Time <input type="text" name="order_time"></td>
+                </tr></table>
+                <table border="1" id= "existO">
+                <tr>
+                    <td>Drug's name <input type="text" name="order_drug_name"></td>
+                    <td>Drug's ID <input type="text" name="order_drug_id"></td>
+                    <td>Num <input type="text" name="order_num"></td>
+                    <td>Price <input type="text" name="order_price"></td>
+                    <td>Time <input type="text" name="order_time"></td>
+                </tr></table>
+                <form class="col-12" id="delete">
+                    <legend class="">Delete an Order</legend>
+                    <div class="form-group row">
+                        <label for="deleteOrder" class="col-form-label">Order #</label>
+                        <div class="col-3">
+                            <input type="number" name="orderNum" class="form-control" placeholder="#000000">
+                        </div>
+                        <button type="submit" id="deleteOrder" class="btn btn-success">Delete</button>
+                    </div>
+                </form>
             <table border="1" id= "existO">
                 <legend style="font-size: 30px">List of Orders</legend>
                 <tr>
@@ -103,8 +110,8 @@
                     <td>00000001</td>
                 </tr>
             </table>
-            <footer>Group 47</footer>
         </div>
+        <footer>Group 47</footer>
     </body>
 </html>
 
