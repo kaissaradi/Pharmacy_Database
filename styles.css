@@ -11,13 +11,17 @@ body{
     padding-bottom: 50px;
 }
 .navbar{
-    background-color: rgb(21, 197, 82);
     color: antiquewhite;
     width: 100%;
+    border: 100px antiquewhite;
 }
 
 a{
     color: antiquewhite;
+}
+
+legend{
+    text-align: left;
 }
 
 footer {
@@ -27,6 +31,20 @@ footer {
     width: 100%;
     text-align: center;
     border-top: 10px solid white;
-    background-color: rgb(21, 197, 82);
+    color: antiquewhite;
+}
+
+.light-green{
+    background-color:  rgb(21, 197, 83);
+}
+.blue{
+    background-color: #1587c5;
+    color: antiquewhite;
+}
+.bright-green{
+    background-color: #4dc515;
+}
+.dark-green{
+    background-color: #35ac5e;
     color: antiquewhite;
 }

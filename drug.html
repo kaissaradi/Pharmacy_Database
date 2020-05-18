@@ -10,7 +10,7 @@
         <link href="styles.css" rel="stylesheet" type="text/css"> 
     </head>
     <body>
-        <header class="navbar navbar-expand">
+        <header class="navbar navbar-expand light-green">
             <nav class="collapse navbar-collapse" id="nav">
                 <ul class="navbar-nav">
                     <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
@@ -25,7 +25,7 @@
                     <h5>Saradi-Wang Pharmacy</h5>
                 </div>
                 <div class="col-4">
-                    <h6>Pharmacy ID: </h6>
+                    <h6>Pharmacy DEA: </h6>
                 </div>
             </div>
         </header>
@@ -42,7 +42,7 @@
                         <input type="number" name="NDC" class="form-control" placeholder="xxxxx-xxxx-xx">
                     </div>
                 </div>
-                <button type="submit" id="updateDrug" class="btn btn-success">Update</button> </br>
+                <button type="submit" id="updateDrug" class="btn dark-green">Update</button> </br>
             </form>
             <form class="col-6" id="search">
                 <legend class="">Search Drug</legend>
@@ -51,17 +51,38 @@
                     <div class="col-6">
                         <input type="text" name="drug" class="form-control" placeholder="Name">
                     </div>
-                    <button type="submit" id="searchItem" class="btn btn-success">Search</button>
+                    <button type="submit" id="searchItem" class="btn dark-green">Search</button>
                 </div>
                 <div class="form-group row">
                     <label for="drug_id" class="col-form-label">NDC</label>
                     <div class="col-6">
                         <input type="number" name="drug_id" class="form-control" placeholder="xxxxx-xxxx-xx"></label>
                     </div>
-                    <button type="submit" id="searchItem" class="btn btn-success">Search</button>
+                    <button type="submit" id="searchItem" class="btn dark-green">Search</button>
                 </div>
             </form>
             <br>
+            <div style="padding: 10px;" class="container">
+                <!--It will generate a list for existing item-->'          
+                <h2 style="text-align: left;">Inventory</h2>
+                <table class="table" id= "existD">
+                    <thead class="light-green">
+                        <th>NDC</th>
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th>Strength</th>
+                        <th>Inventory</th>
+                    </thead
+                    <tr>
+                        <td>00000-0000-00</td>
+                        <td>Aspirin</td>
+                        <td>0.32$</td>
+                        <td>81 MG</td>
+                        <td>300</td>
+                    </tr>
+                </table>
+            </div>
+            
             <form class="col-12" id="add">
                 <legend class="">Add Drug</legend>
                 <div class="form-group row">
@@ -81,31 +102,11 @@
                     <div class="col-2">
                         <input type="number" step="0.01" name="strength" class="form-control" placeholder="0 mg">
                     </div>
-                    <button type="submit" id="addItem" class="btn btn-success">Add</button>
+                    <button type="submit" id="addItem" class="btn dark-green">Add</button>
                 </div>
             </form>
-            <!--It will generate a list for existing item-->'          
-            <h2 style="text-align: left;">Inventory</h2>
-            <table border="1" id= "existD">
-                <tr>
-                    <td></td>
-                    <td>Name</td>
-                    <td>ID</td>
-                    <td>Price</td>
-                    <td>Strength</td>
-                    <td>Inventory</td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>Alcohol</td>
-                    <td>0000</td>
-                    <td>10000$</td>
-                    <td>null</td>
-                    <td>Infinity</td>
-                </tr>
-            </table>
         </div>
-        <footer>Group 47</footer>
+        <footer class="light-green">Group 47</footer>
     </body>
 </html>
 

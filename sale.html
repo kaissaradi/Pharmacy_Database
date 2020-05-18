@@ -9,7 +9,7 @@
         <link href="styles.css" rel="stylesheet" type="text/css"> 
     </head>
     <body>
-        <header class="navbar navbar-expand">
+        <header class="navbar navbar-expand light-green">
             <nav class="collapse navbar-collapse" id="nav">
                 <ul class="navbar-nav">
                     <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
@@ -24,22 +24,57 @@
                     <h5>Saradi-Wang Pharmacy</h5>
                 </div>
                 <div class="col-4">
-                    <h6>Pharmacy ID: </h6>
+                    <h6>Pharmacy DEA: </h6>
                 </div>
             </div>
         </header>
         <div class="container-fluid">
+            <div class="container-fluid"><table class="table table-striped table-dark table-hover" id= "existO">
+                <legend style="font-size: 30px; text-align: left;">Current Sale</legend>
+                <thead class="light-green">
+                    <th>Order #</th>
+                    <th>Name</th>
+                    <th>Drug</th>
+                    <th>Time</th>
+                    <th>Price</th>
+                </thead>
+                <tr>
+                    <td>002234</td>
+                    <td>Dave Smith</td>
+                    <td>Aspirin</td>
+                    <td>01/01/2019 3:30 PM</td>
+                    <td>$3.25</td>
+                </tr>
+            </table>
+            <h4 style="text-align: right;">Total Price: $3.25</h4></div>
+            <div class="container-fluid"><table class="table table-striped table-dark table-hover" id= "existO">
+                <legend style="font-size: 30px; text-align: left;">Completed Orders</legend>
+                <thead class="light-green">
+                    <th>Order #</th>
+                    <th>Name</th>
+                    <th>Drug</th>
+                    <th>Time</th>
+                    <th> </th>
+                </thead>
+                <tr>
+                    <td>002234</td>
+                    <td>Dave Smith</td>
+                    <td>Aspirin</td>
+                    <td>01/01/2019 3:30 PM</td>
+                    <td><button type="submit" id="sellOrder" class="btn dark-green">Add to Sale</button></td>
+                </tr>
+            </table></div>
             <div class="container-fluid">
                 <fieldset style="border-color: #18EF62;">
                     <legend style="font-size: 30px">Customer sales</legend>
-                    <table border="1" id= "existO">
+                    <table class="table" id= "existO">
                         <tr>
                             <td></td>
                             <td>Last Name</td>
                             <td>First Name</td>
                             <td>Patient ID</td>
                             <td>Orders 
-                                <table border="1" id= "existO">
+                                <table class="table" id= "existO">
                                 <tr>
                                     <td>Order ID</td>
                                     <td>Price</td>
@@ -67,7 +102,7 @@
                             <td>First Name</td>
                             <td>Patient ID</td>
                             <td>Orders 
-                                <table border="1" id= "existO">
+                                <table class="table" id= "existO">
                                 <tr>
                                     <td>Order ID</td>
                                     <td>Price</td>
@@ -92,9 +127,9 @@
                     </table>
                 </fieldset>
             </div>
-            <button type="submit" id="addSale" class="btn btn-success">Update</button>
+            <button type="submit" id="addSale" class="btn dark-green">Update</button>
         </div>
-        <footer>Group 47</footer>
+        <footer class="light-green">Group 47</footer>
     </body>
 </html>
 

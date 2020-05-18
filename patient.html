@@ -9,7 +9,7 @@
         <link href="styles.css" rel="stylesheet" type="text/css"> 
     </head>
     <body>
-        <header class="navbar navbar-expand">
+        <header class="navbar navbar-expand light-green">
             <nav class="collapse navbar-collapse" id="nav">
                 <ul class="navbar-nav">
                     <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
@@ -24,7 +24,7 @@
                     <h5>Saradi-Wang Pharmacy</h5>
                 </div>
                 <div class="col-4">
-                    <h6>Pharmacy ID: </h6>
+                    <h6>Pharmacy DEA: </h6>
                 </div>
             </div>
         </header>
@@ -54,7 +54,7 @@
                     <div class="col-3">
                         <input type="text" name="phone" class="form-control" placeholder="888-555-555"></label>
                     </div>
-                    <button type="submit" id="searchP" class="btn btn-success">Search</button>
+                    <button type="submit" id="searchP" class="btn dark-green">Search</button>
                 </div>
             </form>
             <form class="col-12" id="add">
@@ -90,7 +90,7 @@
                         <input class="form-check-input" type="radio" name="gender" id="female" value="female">
                         <label class="form-check-label" for="addP">Female</label>
                       </div>
-                    <button type="submit" id="addP" class="btn btn-success">Add</button>
+                    <button type="submit" id="addP" class="btn dark-green">Add</button>
                 </div>
             </form>
             <form class="col-12" id="update">
@@ -126,34 +126,66 @@
                         <input class="form-check-input" type="radio" name="gender" id="female" value="female">
                         <label class="form-check-label" for="updateP">Female</label>
                       </div>
-                    <button type="submit" id="updateP" class="btn btn-success">Update</button>
+                    <button type="submit" id="updateP" class="btn dark-green">Update</button>
                 </div>
             </form>
-            <table border="1" id= "existC">
+            <div class="container-fluid"><table class="table table-bordered table-hover table-dark" id= "existC">
                 <legend style="font-size: 30px">List of Patients</legend>
+                <thead class="light-green">
+                    <th>DOB</th>
+                    <th>Last Name</th>
+                    <th>First Name</th>
+                    <th>Age</th>
+                    <th>Gender</th>
+                    <th>Email</th>
+                    <th>Address</th>
+                    <th>Update Patient Info</th>
+                </thead>
                 <tr>
-                    <td></td>
-                    <td>Last Name</td>
-                    <td>First Name</td>
-                    <td>ID</td>
-                    <td>Age</td>
-                    <td>Gender</td>
-                    <td>Email</td>
-                    <td>Address</td>
-                </tr>
-                <tr>
-                    <td></td>
+                    <td>03/03/2000</td>
                     <td>Trump</td>
                     <td>Donald</td>
-                    <td>0001</td>
                     <td>73</td>
                     <td>Male</td>
-                    <td>null</td>
-                    <td></td>
+                    <td>NULL</td>
+                    <td>100 5th st</td>
+                    <td><button type="submit" id="updateP" class="btn dark-green">Update</button></td>
                 </tr>
-            </table>
+                <tr>
+                    <td>03/03/2000</td>
+                    <td>James</td>
+                    <td>Baldwin</td>
+                    <td>19</td>
+                    <td>Male</td>
+                    <td>NULL</td>
+                    <td>111 10th AVE</td>
+                    <td><button type="submit" id="updateP" class="btn dark-green">Update</button></td>
+                </tr>
+            </table></div> 
+            <div class="container-fluid"><table class="table table-bordered table-dark" id= "pt">
+                <legend style="font-size: 30px">Patient Prescriptions</legend>
+                <thead class="light-green">
+                    <th>RX</th>
+                    <th>Drug</th>
+                    <th>Strenth</th>
+                    <th>Date</th>
+                </thead>
+                <tr>
+                    <td>432558</td>
+                    <td>Aspirin</td>
+                    <td>81 MG</td>
+                    <td>03/03/2009</td>
+                </tr>
+                <tr>
+                    <td>0432668</td>
+                    <td>Tylenol</td>
+                    <td>325 MG</td>
+                    <td>0101/2015</td>
+
+                </tr>
+            </table></div>
         </div>
-        <footer class="navvbar">Group 47</footer>
+        <footer class="light-green"">Group 47</footer>
     </body>
 </html>
 
