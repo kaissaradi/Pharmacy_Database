@@ -76,6 +76,7 @@ CREATE TABLE `patient` (
     `patient_gender` varchar(255) NOT NULL,
     `patient_address` varchar(255) NOT NULL,
     `patient_email` varchar(255) NOT NULL
+    `patient_phone` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -94,6 +95,7 @@ INSERT INTO `patient` (`patient_lname`, `patient_fname`, `patient_DOB`, `patient
 
 CREATE TABLE `prescription` (
     `RX` int(11) NOT NULL,
+    `patient_name` VARCHAR(255) NOT NULL,
     `pharmacy_DEA` int(11) NOT NULL,
     `drug_name` varchar(255) NOT NULL,
     `drug_strength` int(11) NOT NULL,
