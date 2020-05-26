@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: classmysql.engr.oregonstate.edu:3306
--- Generation Time: May 17, 2020 at 10:54 PM
+-- Generation Time: May 26, 2020 at 04:26 PM
 -- Server version: 10.4.11-MariaDB-log
 -- PHP Version: 7.4.4
 
@@ -18,26 +18,9 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
 
--- --------------------------------------------------------
-
 --
--- Table structure for table `pharmacy`
+-- Database: `cs340_saradik`
 --
-
-CREATE TABLE `pharmacy`(
-    `pharmacy_name` varchar(255) NOT NULL,
-    `pharmacy_DEA` int(11) NOT NULL,
-    `pharmacy_address` varchar(255) NOT NULL,
-    `pharmacy_phone` int(11) NOT NULL,
-    `pharmacy_fax` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `pharmacy`
---
-
-INSERT INTO `pharmacy` (`pharmacy_name`, `pharmacy_DEA`, `pharmacy_address`, `pharmacy_phone`, `pharmacy_fax`) VALUES
-('Saradi-Wang Pharmacy', 000, 'OSU', 888-000-0000, 000);
 
 -- --------------------------------------------------------
 
@@ -45,22 +28,41 @@ INSERT INTO `pharmacy` (`pharmacy_name`, `pharmacy_DEA`, `pharmacy_address`, `ph
 -- Table structure for table `drug`
 --
 
-CREATE TABLE `drug`(
-    `drug_name` varchar(255) NOT NULL,
-    `drug_NDC` int(11) NOT NULL,
-    `pharmacy_DEA` int(11) NOT NULL,
-    `drug_strength` int(11) NOT NULL,
-    `drug_price` float NOT NULL,
-    `drug_qty` int(11) NOT NULL
+CREATE TABLE `drug` (
+  `name` varchar(255) NOT NULL,
+  `ndc` int(11) NOT NULL,
+  `pharmacy` int(11) NOT NULL,
+  `strength` int(11) NOT NULL,
+  `price` decimal(8,2) DEFAULT NULL,
+  `qty` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `drug`
 --
 
-INSERT INTO `drug` (`drug_name`, `drug_NDC`, `pharmacy_DEA`, `drug_strength`, `drug_price`, `drug_qty`) VALUES
-('Aspirin', 0000, 000, 81, 0.32, 300),
-('Tylenol', 0001, 000, 325, 10.0, 50);
+INSERT INTO `drug` (`name`, `ndc`, `pharmacy`, `strength`, `price`, `qty`) VALUES
+('Tylenol', 1, 1, 325, '3.25', 100);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `orders`
+--
+
+CREATE TABLE `orders` (
+  `id` int(11) NOT NULL,
+  `rx` int(11) NOT NULL,
+  `status` varchar(255) NOT NULL,
+  `time` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`id`, `rx`, `status`, `time`) VALUES
+(1, 1, 'Incomplete', '2020-05-26 23:26:07');
 
 -- --------------------------------------------------------
 
@@ -69,23 +71,43 @@ INSERT INTO `drug` (`drug_name`, `drug_NDC`, `pharmacy_DEA`, `drug_strength`, `d
 --
 
 CREATE TABLE `patient` (
-    `patient_lname` varchar(255) NOT NULL,
-    `patient_fname` varchar(255) NOT NULL,
-    `patient_DOB` DATE NOT NULL,
-    `patient_age` int(11) NOT NULL,
-    `patient_gender` varchar(255) NOT NULL,
-    `patient_address` varchar(255) NOT NULL,
-    `patient_email` varchar(255) NOT NULL
-    `patient_phone` varchar(255) NOT NULL
+  `id` int(11) NOT NULL,
+  `lname` varchar(255) NOT NULL,
+  `fname` varchar(255) NOT NULL,
+  `dob` date NOT NULL,
+  `gender` varchar(255) NOT NULL,
+  `address` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `phone` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `patient`
 --
 
-INSERT INTO `patient` (`patient_lname`, `patient_fname`, `patient_DOB`, `patient_age`, `patient_gender`, `patient_address`, `patient_email`) VALUES
-('Trump', 'Donald', '2020-05-17', 73, 'male', '100 5th st', 'null@123.com'),
-('James', 'Bladwin', '2020-05-17', 19, 'male', '101 10th st', 'null@456.com');
+INSERT INTO `patient` (`id`, `lname`, `fname`, `dob`, `gender`, `address`, `email`, `phone`) VALUES
+(1, 'Saradi', 'Kais', '1995-03-25', 'Male', '100 5th st	', 'saradik@oregonstate.edu', '8880000000');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pharmacy`
+--
+
+CREATE TABLE `pharmacy` (
+  `name` varchar(255) NOT NULL,
+  `dea` int(11) NOT NULL,
+  `address` varchar(255) NOT NULL,
+  `phone` varchar(255) NOT NULL,
+  `fax` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `pharmacy`
+--
+
+INSERT INTO `pharmacy` (`name`, `dea`, `address`, `phone`, `fax`) VALUES
+('Student Health Services', 1, '108 SW Memorial Pl, Corvallis, OR 97331', '5417379355', '5417379356');
 
 -- --------------------------------------------------------
 
@@ -94,128 +116,140 @@ INSERT INTO `patient` (`patient_lname`, `patient_fname`, `patient_DOB`, `patient
 --
 
 CREATE TABLE `prescription` (
-    `RX` int(11) NOT NULL,
-    `patient_name` VARCHAR(255) NOT NULL,
-    `pharmacy_DEA` int(11) NOT NULL,
-    `drug_name` varchar(255) NOT NULL,
-    `drug_strength` int(11) NOT NULL,
-    `prescritpion_date` timestamp NOT NULL DEFAULT current_timestamp()
+  `rx` int(11) NOT NULL,
+  `patient` int(11) DEFAULT NULL,
+  `drug` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `prescription`
 --
 
-INSERT INTO `prescription` (`RX`, `pharmacy_DEA`, `drug_name`, `drug_strength`, `prescritpion_date`)VALUES
-(1, 000, 'Aspirin', 81, '2009-03-03 15:55:11'),
-(2, 000, 'Tylenol', 325, '2009-01-01 15:55:11');
+INSERT INTO `prescription` (`rx`, `patient`, `drug`) VALUES
+(1, 1, 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `order`
+-- Table structure for table `sales`
 --
 
-CREATE TABLE `order` (
-    `order_id` int(11) NOT NULL,
-    `RX` int(11) NOT NULL,
-    `pharmacy_DEA` int(11) NOT NULL,
-    `order_name` varchar(255) NOT NULL,
-    `drug_name` varchar(255) NOT NULL,
-    `status` varchar(255) NOT NULL,
-    `price` int(11) NOT NULL,
-    `order_time` timestamp NOT NULL DEFAULT current_timestamp()
+CREATE TABLE `sales` (
+  `id` int(11) NOT NULL,
+  `order` int(11) NOT NULL,
+  `time` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `order`
+-- Dumping data for table `sales`
 --
 
-INSERT INTO `order` (`order_id`, `RX`, `pharmacy_DEA`, `drug_name`, `status`, `price`, `order_time`) VALUES
-(1, 1, 000, 'Aspirin', 'completed', 10, '2020-05-14 18:33:11'),
-(2, 2, 000, 'Tylenol', 'uncompleted', 20, '2020-05-14 18:33:11');
-
-
--- --------------------------------------------------------
-
---
--- Table structure for table `currentSale`
---
-
-CREATE TABLE `currentSale` (
-    `pharmacy_DEA` int(11) NOT NULL,
-    `order_id` int(11) NOT NULL,
-    `order_name` varchar(255) NOT NULL,
-    `drug_name` varchar(255) NOT NULL,
-    `order_time` timestamp NOT NULL DEFAULT current_timestamp(),
-    `price` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- Table structure for table `completedSale`
-
-CREATE TABLE `completedSale` (
-    `pharmacy_DEA` int(11) NOT NULL,
-    `order_id` int(11) NOT NULL,
-    `order_name` varchar(255) NOT NULL,
-    `drug_name` varchar(255) NOT NULL,
-    `order_time` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- Table structure for table `sale`
-
-CREATE TABLE `sale` (
-    `pharmacy_DEA` int(11) NOT NULL,
-    `patient_lname` varchar(255) NOT NULL,
-    `patient_fname` varchar(255) NOT NULL,
-    `order_id` int(11) NOT NULL,
-    `status` varchar(255) NOT NULL,
-    `order_time` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-
---
--- Dumping data for table `completedSale`
---
-
-INSERT INTO `completedSale` (`pharmacy_DEA`, `order_id`, `order_name`, `drug_name`, `order_time`) VALUES
-(000, 1, 'Dave Smith', 'Aspirin', '2020-05-14 18:33:11');
+INSERT INTO `sales` (`id`, `order`, `time`) VALUES
+(1, 1, '2020-05-26 23:26:07');
 
 --
 -- Indexes for dumped tables
 --
 
-
--- indexes for table `pharmacy`
-ALTER TABLE `pharmacy`
-    ADD PRIMARY KEY (`pharmacy_DEA`);
-
--- indexes for table `drug`
+--
+-- Indexes for table `drug`
+--
 ALTER TABLE `drug`
-    ADD PRIMARY KEY (`drug_name`),
-    ADD  KEY (`drug_strength`);
+  ADD PRIMARY KEY (`ndc`),
+  ADD UNIQUE KEY `ndc` (`ndc`),
+  ADD UNIQUE KEY `pharmacy` (`pharmacy`);
 
--- indexes for table `prescription`
-ALTER TABLE `prescription`
-    ADD PRIMARY KEY (`RX`);
+--
+-- Indexes for table `orders`
+--
+ALTER TABLE `orders`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `rx_num` (`rx`);
 
-
--- indexes for table `order`
-ALTER TABLE `order`
-    ADD PRIMARY KEY (`order_id`),
-    ADD KEY (`order_name`),
-    ADD KEY (`order_time`),
-    ADD KEY (`status`);
-
--- indexes for table `patient`
+--
+-- Indexes for table `patient`
+--
 ALTER TABLE `patient`
-    ADD PRIMARY KEY (`patient_lname`),
-    ADD KEY (`patient_fname`);
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `pharmacy`
+--
+ALTER TABLE `pharmacy`
+  ADD PRIMARY KEY (`dea`),
+  ADD UNIQUE KEY `dea` (`dea`);
+
+--
+-- Indexes for table `prescription`
+--
+ALTER TABLE `prescription`
+  ADD PRIMARY KEY (`rx`),
+  ADD KEY `patient_id` (`patient`),
+  ADD KEY `drug_id` (`drug`);
+
+--
+-- Indexes for table `sales`
+--
+ALTER TABLE `sales`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `order_number` (`order`);
 
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `orders`
+--
+ALTER TABLE `orders`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `patient`
+--
+ALTER TABLE `patient`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `prescription`
+--
 ALTER TABLE `prescription`
-    MODIFY `RX` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `rx` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `sales`
+--
+ALTER TABLE `sales`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `drug`
+--
+ALTER TABLE `drug`
+  ADD CONSTRAINT `drug_ibfk_1` FOREIGN KEY (`pharmacy`) REFERENCES `pharmacy` (`dea`);
+
+--
+-- Constraints for table `orders`
+--
+ALTER TABLE `orders`
+  ADD CONSTRAINT `rx_num` FOREIGN KEY (`rx`) REFERENCES `prescription` (`rx`);
+
+--
+-- Constraints for table `prescription`
+--
+ALTER TABLE `prescription`
+  ADD CONSTRAINT `drug_id` FOREIGN KEY (`drug`) REFERENCES `drug` (`ndc`),
+  ADD CONSTRAINT `patient_id` FOREIGN KEY (`patient`) REFERENCES `patient` (`id`);
+
+--
+-- Constraints for table `sales`
+--
+ALTER TABLE `sales`
+  ADD CONSTRAINT `order_number` FOREIGN KEY (`order`) REFERENCES `orders` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
