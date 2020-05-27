@@ -6,22 +6,22 @@ var bodyParser = require('body-parser');
 var mysql = require('mysql'); 
 
 //setting connection on port and create connection pool
-app.set('port', 1995);
+app.set('port', 19952);
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.engine('handlebars', handlebars.engine);
 //http://eecs.oregonstate.edu/ecampus-video/CS290/core-content/node-mysql/using-server-sql.html
 var pool = mysql.createPool({
   connectionLimit : 10,
-  host            : 'classmysql.engr.oregonstate.edu',
-  user            : 'cs340_saradik',
-  password        : '0846',
-  database        : 'cs340_saradik'
+  host            : 'localhost',
+  user            : 'root',
+  password        : 'admin',
+  database        : 'pharmacy_DB'
 });
 
 //main route to send data from the database table
 app.get("/", function(req, res, next) {
-  if(req.query.length == 0){
+  if(req.query.length == undefined){
     pool.query('SELECT * FROM pharmacy', function(err,rows){
       if(err){
         next(err);

@@ -1,0 +1,75 @@
+<header class="navbar navbar-expand light-green">
+  <nav class="collapse navbar-collapse" id="nav">
+    <ul class="navbar-nav">
+      <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+      <li class="nav-item"><a class="nav-link" href="drug.html">Drugs</a></li>
+      <li class="nav-item"><a class="nav-link" href="patient.html">Patients</a></li>
+      <li class="nav-item"><a class="nav-link" href="order.html">Orders</a></li>
+      <li class="nav-item"><a class="nav-link" href="sale.html">Sales</a></li>
+    </ul>
+  </nav>
+  <div class="row">
+    <div class="col-8">
+      <h5>Saradi-Wang Pharmacy</h5>
+    </div>
+    <div class="col-4">
+      <h6>Pharmacy DEA: </h6>
+    </div>
+  </div>
+</header>
+<div class="container-fluid">
+  <div style="padding: 5px;" class="row blue">
+    <div class="col-sm float-left">
+      <h3 style="text-align: left;">Pharmacy's location:</h3>
+      <h5 style="text-align: left;">Phone: </h5>
+      <h5 style="text-align: left;">Fax: </h5>
+    </div>
+    <div class="col-sm float-right">
+      <h6 style="text-align: right;">Date:</h6>
+      <h6 style="text-align: right;">RX Completed:</h6>
+      <h6 style="text-align: right;">RX Queue:</h6>
+      <button id="newRX" class="btn dark-green float-right">New RX</button>
+    </div>
+  </div>
+    <div style="padding-top: 30px;" class="container-fluid">
+      <form action="" id="insertP">
+        <div class="input-group">
+          <div class="input-group-prepend">
+              <span class="input-group-text dark-green">Pharmacy</span>
+          </div>
+          <input id="name" type="text" class="form-control" placeholder="Fred Meyer">
+          <div class="input-group-prepend">
+              <span class="input-group-text dark-green">Number</span>
+          </div>
+          <input id="phone" type="text" class="form-control" placeholder="888-000-0000">
+          <div class="input-group-prepend">
+              <span class="input-group-text dark-green">Fax</span>
+          </div>
+          <input id="fax" type="text" class="form-control" placeholder="888-000-0000">
+          <div class="input-group-prepend">
+              <span class="input-group-text dark-green">Address</span>
+          </div>
+          <input id="address" type="text" class="form-control" placeholder="100th st">
+          <div class="input-group-prepend">
+              <span id="dea" class="input-group-text dark-green">DEA</span>
+          </div>
+          <input type="text" class="form-control" placeholder="XX000000000">
+          <button type="submit" id="addPharm" class="btn dark-green">Add</button>
+        </div>
+      </form>
+      <div style="padding-top: 10px;" class="container">
+        <table class="table" id="pharmacies">
+          <thead class="light-green">
+            <th scope="col">Name</th>
+            <th scope="col">Adress</th>
+            <th scope="col">Phone</th>
+            <th scope="col">Fax</th>
+            <th scope="col">DEA</th>
+          </thead>
+        </table>
+      </div>
+    </div>
+</div>
+<footer class="light-green">Group 47</footer>
+
+<script src="./script.js"><{{!}}/script>
