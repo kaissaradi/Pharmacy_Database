@@ -6,10 +6,12 @@ var bodyParser = require('body-parser');
 var mysql = require('mysql'); 
 
 //setting connection on port and create connection pool
+app.set('view engine', 'handlebars');
 app.set('port', 19952);
+app.engine('handlebars', handlebars.engine);
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.engine('handlebars', handlebars.engine);
+app.use(express.static("public"));
 //http://eecs.oregonstate.edu/ecampus-video/CS290/core-content/node-mysql/using-server-sql.html
 var pool = mysql.createPool({
   connectionLimit : 10,
@@ -20,33 +22,31 @@ var pool = mysql.createPool({
 });
 
 //main route to send data from the database table
-app.get("/", function(req, res, next) {
-  if(req.query.length == undefined){
-    pool.query('SELECT * FROM pharmacy', function(err,rows){
-      if(err){
-        next(err);
-        return;
-        }
-      var context = {};
-      context.results = JSON.stringify(rows);
-      res.render('home', context);
-    });
-  }
-  else{
-    pool.query("INSERT INTO pharmacy (`name`, `dea`, `address`, `phone`, `fax`) VALUES (?, ?, ?, ?, ?)",
-    [req.query.name,              
-    req.query.dea, 
-    req.query.address, 
-    req.query.phone, 
-    req.query.fax], function(err, result){
-      if(err){
-        next(err);
-        return;
-      }         
-      context.results = JSON.stringify(rows);
-      res.send(context);
-      });
-  }
+app.get('/',function(req,res,next){
+  var context = {};
+  pool.query('SELECT * FROM pharmacy', function(err, rows, fields){
+
+    if(err){
+      next(err);
+      return;
+    }
+    context.results = rows;
+    res.render('home', context);
+    return;
+  });
+});
+//send mysql table data
+app.get('/view',function(req,res,next){
+  var context = {};
+  pool.query('SELECT * FROM pharmacy', function(err, rows, fields){
+    if(err){
+      next(err);
+      return;
+    }
+    context.results = rows;
+    res.send(context);
+    return;
+  });
 });
 
 app.use(function(req, res) {
