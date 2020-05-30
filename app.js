@@ -15,10 +15,10 @@ app.use(express.static("public"));
 //http://eecs.oregonstate.edu/ecampus-video/CS290/core-content/node-mysql/using-server-sql.html
 var pool = mysql.createPool({
   connectionLimit : 10,
-  host            : 'localhost',
-  user            : 'root',
-  password        : 'admin',
-  database        : 'pharmacy_DB'
+  host            : 'classmysql.engr.oregonstate.edu',
+  user            : 'cs340_saradik',
+  password        : '0846',
+  database        : 'cs340_saradik'
 });
 
 //main route to send data from the database table
@@ -36,7 +36,6 @@ app.get('/',function(req,res,next){
     });
   }//create query, inserts values from request into database
   else if (req.query.create == "true"){
-    console.log(req.query);
     pool.query("INSERT INTO `pharmacy` (`name`, `dea`, `address`, `phone`, `fax`) VALUES (?, ?, ?, ?, ?)",
     [req.query.name,
     req.query.dea,
