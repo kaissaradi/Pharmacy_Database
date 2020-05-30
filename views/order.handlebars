@@ -1,0 +1,87 @@
+<div class="container-fluid" id="body">
+  <form class="col-12" id="search">
+    <legend class="">Search Orders</legend>
+    <div class="form-group row">
+      <label for="searchD" class="col-form-label">Last Name</label>
+      <div class="col-3">
+          <input type="text" name="first" class="form-control" placeholder="Smith">
+      </div><br>
+      <label for="searchD" class="col-form-label">First Name</label>
+      <div class="col-3">
+          <input type="text" name="last" class="form-control" placeholder="Bob">
+      </div>
+      <label for="searchD" class="col-form-label">Drug Name</label>
+      <div class="col-3">
+          <input type="text" name="drug" class="form-control" placeholder="Drug Name">
+      </div>
+      <button type="submit" id="searchP" class="btn dark-green">Search</button>
+    </div>
+  </form>
+  <form class="col-12" id="search">
+    <legend class="">Create A New Order</legend>
+    <div class="form-group row">
+        <label for="addD" class="col-form-label">Last Name</label>
+        <div class="col-3">
+            <input type="text" name="first" class="form-control" placeholder="Smith">
+        </div><br>
+        <label for="addD" class="col-form-label">First Name</label>
+        <div class="col-3">
+            <input type="text" name="last" class="form-control" placeholder="Bob">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="addD" class="col-form-label">Drug Name</label>
+        <div class="col-3">
+            <input type="text" name="drug" class="form-control" placeholder="Drug Name">
+        </div>
+        <label for="addD" class="col-form-label">Drug NDC</label>
+        <div class="col-3">
+            <input type="number" name="NDC" class="form-control" placeholder="xxxxx-xxxx-xx">
+        </div>
+        <button type="submit" id="addD" class="btn dark-green">Create</button>
+    </div>
+  </form>
+  <form class="col-12" id="delete">
+    <legend class="">Delete an Order</legend>
+    <div class="form-group row">
+        <label for="deleteOrder" class="col-form-label">Order #</label>
+        <div class="col-3">
+            <input type="number" name="orderNum" class="form-control" placeholder="#000000">
+        </div>
+        <button type="submit" id="deleteOrder" class="btn dark-green">Delete</button>
+    </div>
+  </form>
+  <div class="container-fluid"><table class="table table-striped table-dark table-hover" id= "existO">
+      <legend style="font-size: 30px; text-align: left;">Open Orders</legend>
+      <thead class="light-green">
+          <th>Order #</th>
+          <th>Name</th>
+          <th>Drug</th>
+          <th>Time</th>
+      </thead>
+      <tr>
+          <td>002234</td>
+          <td>Dave Smith</td>
+          <td>Aspirin</td>
+          <td>01/01/2019 3:30 PM</td>
+      </tr>
+  </table></div>
+  <div class="container-fluid"><table class="table table-striped table-dark table-hover" id= "existO">
+      <legend style="font-size: 30px; text-align: left;">Order # </legend>
+      <thead class="light-green">
+        <th>RX #</th>
+        <th>Name</th>
+        <th>Drug</th>
+        <th>Time</th>
+        <th>Price</th>
+      </thead>
+      <tr>
+        <td>002234</td>
+        <td>Dave Smith</td>
+        <td>Aspirin</td>
+        <td>01/01/2019 3:30 PM</td>
+        <td>$3.21</td>
+      </tr>
+  </table></div>
+  </div>
+  <footer class="light-green">Group 47</footer>

@@ -24,43 +24,143 @@ var pool = mysql.createPool({
 //main route to send data from the database table
 app.get('/',function(req,res,next){
   var context = {};
-  pool.query('SELECT * FROM pharmacy', function(err, rows, fields){
-
-    if(err){
-      next(err);
+  if(req.query.read == "true"){
+    pool.query("SELECT * FROM `pharmacy`", function(err, rows, fields){
+      if(err){
+        next(err);
+        return;
+      }
+      context.results = rows;
+      res.send(context);
       return;
-    }
-    context.results = rows;
-    res.render('home', context);
+    });
+  }//create query, inserts values from request into database
+  else if (req.query.create == "true"){
+    console.log(req.query);
+    pool.query("INSERT INTO `pharmacy` (`name`, `dea`, `address`, `phone`, `fax`) VALUES (?, ?, ?, ?, ?)",
+    [req.query.name,
+    req.query.dea,
+    req.query.address,
+    req.query.phone,
+    req.query.fax], function(err){
+      if(err){
+        next(err);
+        return;
+      }
+      pool.query('SELECT * FROM pharmacy', function(err, rows, fields){
+        if(err){
+          next(err);
+          return;
+        }
+        context.results = rows;
+        res.send(context);
+        return;
+      });
+    });
+  }//delete function
+  else if(req.query.delete == "true"){
+    pool.query("DELETE FROM `pharmacy` WHERE dea = ?",[req.query.dea], function(err, result) {
+      if(err){
+        next(err);
+        return;
+      }
+      pool.query("SELECT * FROM `pharmacy`", function(err, rows, fields){
+        if(err){
+          next(err);
+          return;
+        }
+        context.results = rows;
+        res.send(context);
+        return;
+      });
+    });
+  }
+  else{//if no elevant query was made, the home page is served
+    res.render('index', context);
     return;
-  });
+  } 
 });
-//send mysql table data
-app.get('/view',function(req,res,next){
+
+//DRUG page route
+app.get('/drug',function(req,res,next){
   var context = {};
-  pool.query('SELECT * FROM pharmacy', function(err, rows, fields){
-    if(err){
-      next(err);
+  console.length
+  if (req.query.length == undefined) {
+    pool.query("SELECT * FROM `drug`", function(err, rows, fields){
+      if(err){
+        next(err);
+        return;
+      }
+      context.results = rows;
+      res.render('drug', context);
       return;
-    }
-    context.results = rows;
-    res.send(context);
-    return;
-  });
+    });
+  }
 });
 
-app.use(function(req, res) {
+//ORDER page route
+app.get('/order',function(req,res,next){
+  var context = {};
+  console.length
+  if (req.query.length == undefined) {
+    pool.query("SELECT * FROM `order`", function(err, rows, fields){
+      if(err){
+        next(err);
+        return;
+      }
+      context.results = rows;
+      res.render('order', context);
+      return;
+    });
+  }
+});
+
+//PATIENT page route
+app.get('/patient',function(req,res,next){
+  var context = {};
+  console.length
+  if (req.query.length == undefined) {
+    pool.query("SELECT * FROM `patient`", function(err, rows, fields){
+      if(err){
+        next(err);
+        return;
+      }
+      context.results = rows;
+      res.render('patient', context);
+      return;
+    });
+  }
+});
+
+//SALE page route
+app.get('/sale',function(req,res,next){
+  var context = {};
+  console.length
+  if (req.query.length == undefined) {
+    pool.query("SELECT * FROM `sale`", function(err, rows, fields){
+      if(err){
+        next(err);
+        return;
+      }
+      context.results = rows;
+      res.render('sale', context);
+      return;
+    });
+  }
+});
+
+//error handling
+app.use(function(res) {
     res.status(404);
     res.render('404');
-});
-
-app.use(function(err, req, res, next) {
+});~
+app.use(function(err, res) {
     console.error(err.stack);
     res.type('plain/text');
     res.status(500);
     res.render('500');
 });
-
+//start server
 app.listen(app.get('port'), function() {
     console.log('Express started on http://localhost:' + app.get('port') + '; press Ctrl-C to terminate.');
 });
