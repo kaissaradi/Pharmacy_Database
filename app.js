@@ -20,171 +20,102 @@ var pool = mysql.createPool({
   database        : 'pharmacy_DB'
 });
 
-//main route to send data from the database table
-app.get('/',function(req,res,next){
+//function to select rows from SQL database and serve context
+function selectQuer(quer, res, next, params){
   var context = {};
-  var queryString = "";
-  if(req.query.read == "true"){
-  queryString = "SELECT `name`, `dea`, `address`, `phone`, `fax` FROM `pharmacy`";
-    pool.query(queryString, function(err, rows, fields){
-      if(err){
-        next(err);
-        return;
-      }
-      context.results = rows;
-      res.send(context);
+  if(params){
+  pool.query(quer, params, function(err, rows, fields){
+    if(err){
+      next(err);
       return;
-    });
+    }
+    context.results = rows;
+    res.send(context);
+    return;
+  });
+  }
+  else{
+  pool.query(quer, function(err, rows, fields){
+    if(err){
+      next(err);
+      return;
+    }
+    context.results = rows;
+    res.send(context);
+    return;
+  });
+  }
+}
+//function to make a database query, then display selected rows sing the callback function
+function sqlQuer(quer, params, selectString, res, next, selectQuer){
+  pool.query(quer, params, function(err){
+    if(err){
+      next(err);
+      return;
+    }
+    selectQuer(selectString, res, next);
+    return;
+  });
+}
+
+//main route to send data from the database table and show pharmacies
+app.get('/',function(req,res,next){
+  var queryString = "";
+  var params = [];
+  var selectString = "SELECT `name`, `dea`, `address`, `phone`, `fax` FROM `pharmacy`";
+  if(req.query.read == "true"){
+    selectQuer(selectString, res, next);
   }//create query, inserts values from request into database
   else if (req.query.create == "true"){
-    queryString = "INSERT INTO `pharmacy` (`name`, `dea`, `address`, `phone`, `fax`) VALUES (?, ?, ?, ?, ?)"
-    pool.query(queryString,
-    [req.query.name,
-    req.query.dea,
-    req.query.address,
-    req.query.phone,
-    req.query.fax], function(err){
-      if(err){
-        next(err);
-        return;
-      }
-      queryString = "SELECT `name`, `dea`, `address`, `phone`, `fax` FROM pharmacy";
-      pool.query(queryString, function(err, rows, fields){
-        if(err){
-          next(err);
-          return;
-        }
-        context.results = rows;
-        res.send(context);
-        return;
-      });
-    });
+    queryString = "INSERT INTO `pharmacy` (`name`, `dea`, `address`, `phone`, `fax`) VALUES (?, ?, ?, ?, ?)";
+    params = [req.query.name, req.query.dea, req.query.address, req.query.phone, req.query.fax];
+    sqlQuer(queryString, params, selectString, res, next, selectQuer);
+    return;
   }
   else if (req.query.search == "true"){
     queryString = "SELECT `name`, `dea`, `address`, `phone`, `fax` FROM `pharmacy` WHERE `name` REGEXP ? AND `dea` REGEXP ? AND `address` REGEXP ? AND `phone` REGEXP ? AND `fax` REGEXP ?";
-    pool.query(queryString,
-    [req.query.name,
-    req.query.dea,
-    req.query.address,
-    req.query.phone,
-    req.query.fax], function(err, rows, fields){
-      if(err){
-        next(err);
-        return;
-      }
-      context.results = rows;
-      res.send(context);
-      return;
-    });
+    params = [req.query.name, req.query.dea, req.query.address, req.query.phone, req.query.fax];
+    selectQuer(queryString, res, next, params);
   }//delete function
   else if(req.query.delete == "true"){
     queryString = "DELETE FROM `pharmacy` WHERE dea = ?";
-    pool.query(queryString,[req.query.dea], function(err, result) {
-      if(err){
-        next(err);
-        return;
-      }
-      queryString = "SELECT `name`, `dea`, `address`, `phone`, `fax` FROM `pharmacy`";
-      pool.query(queryString, function(err, rows, fields){
-        if(err){
-          next(err);
-          return;
-        }
-        context.results = rows;
-        res.send(context);
-        return;
-      });
-    });
+    params = [req.query.dea];
+    sqlQuer(queryString, params, selectString, res, next, selectQuer);
   }
   else{//if no relevant query was made, the home page is served 
     res.render('index');
     return;
   } 
 });
-
 //DRUG page route
 app.get('/drug',function(req,res,next){
-  var context = {};
+  var queryString;
+  var params = [];
+  var selectString = "SELECT `ndc`, `name`, `strength`, `price`, `qty` FROM `drug` WHERE `pharmacy` = ? ORDER BY `name`";
   if(req.query.read == "true"){
-    queryString = "SELECT `ndc`, `name`, `strength`, `price`, `qty` FROM `drug` WHERE `pharmacy` = ? ORDER BY `name`";
-    pool.query(queryString, [req.query.pharmacy], function(err, rows, fields){
-      if(err){
-        next(err);
-        return;
-      }
-      context.results = rows;
-      res.send(context);
-      return;
-    });
+    params = [req.query.pharmacy];
+    selectQuer(selectString, res, next, params);
   }//create query, inserts values from request into database
   else if (req.query.create == "true"){
     queryString = "INSERT INTO `drug` (`name`, `ndc`, `strength`, `price`, `qty`, `pharmacy`) VALUES (?, ?, ?, ?, ?, ?)";
-    pool.query(queryString,
-    [req.query.name,
-    req.query.ndc,
-    req.query.strength,
-    req.query.price,
-    req.query.qty,
-    req.query.pharmacy], function(err){
-      if(err){
-        next(err);
-        return;
-      }
-      queryString = "SELECT `ndc`, `name`, `strength`, `price`, `qty` FROM `drug` WHERE `pharmacy` = ? ORDER BY `name`";
-      pool.query(queryString,[req.query.pharmacy], function(err, rows, fields){
-        if(err){
-          next(err);
-          return;
-        }
-        context.results = rows;
-        res.send(context);
-        return;
-      });
-    });
+    params = [req.query.name, req.query.ndc, req.query.strength, req.query.price, req.query.qty, req.query.pharmacy];    
+    sqlQuer(queryString, params, selectString, res, next, selectQuer);
   }
   else if (req.query.search == "true"){
     queryString = "SELECT `name`, `ndc`, `strength`, `price`, `qty` FROM `drug` WHERE `pharmacy` = ? AND `name` REGEXP ? AND `ndc` REGEXP ? AND `strength` REGEXP ?";
-    pool.query(queryString,
-    [req.query.pharmacy,
-    req.query.name,
-    req.query.ndc,
-    req.query.strength,], 
-    function(err, rows, fields){
-      if(err){
-        next(err);
-        return;
-      }
-      context.results = rows;
-      res.send(context);
-      return;
-    });
-  }//delete function
-  else if(req.query.delete == "true"){
-    queryString = "";          //*WRITE DELETE QUERY
-    pool.query(queryString,[req.query.dea], function(err, result) {
-      if(err){
-        next(err);
-        return;
-      }
-      queryString = "SELECT `ndc`, `name`, `strength`, `price`, `qty` FROM `drug` WHERE `pharmacy` = ? ORDER BY `name`"; 
-      pool.query(queryString, function(err, rows, fields){
-        if(err){
-          next(err);
-          return;
-        }
-        context.results = rows;
-        res.send(context);
-        return;
-      });
-    });
+    params = [req.query.pharmacy, req.query.name, req.query.ndc, req.query.strength];
+    selectQuer(queryString, res, next, params);
+  }
+  else if(req.query.delete == "true"){//delete
+    querystring = "";          //*write delete query
+    sqlQuer(queryString, params, selectString, res, next, selectQuer);
   }
   else{//if no relevant query was made, the home page is served 
     res.render('drug');
     return;
   } 
 });
-
-//ORDER page route
+//ORDER page route          *NOT DONE*
 app.get('/order',function(req,res,next){
   var context = {};
   if (req.query.length == undefined) {
@@ -199,48 +130,19 @@ app.get('/order',function(req,res,next){
     });
   }
 });
-
 //PATIENT page route
 app.get('/patient',function(req,res,next){
   var context = {};
   var queryString;
+  var  selectString = "SELECT `id`, `fname`, `lname`, `dob`, `email`, `address`, `phone`, `gender` FROM `patient` ORDER BY `lname`";
+  var params = [];
   if(req.query.read == "true"){
-    queryString = "SELECT `id`, `fname`, `lname`, `dob`, `email`, `address`, `phone`, `gender` FROM `patient` ORDER BY `lname`";
-    pool.query(queryString, function(err, rows, fields){
-      if(err){
-        next(err);
-        return;
-      }
-      context.results = rows;
-      res.send(context);
-      return;
-    });
+    selectQuer(selectString, res, next);
   }//create query, inserts values from request into database
   else if (req.query.create == "true"){
     queryString = ""      //*WRITE QUERY TO INSERT
-    pool.query(queryString,
-    [req.query.fname,
-    req.query.lname,
-    req.query.dob,
-    req.query.email,
-    req.query.address,
-    req.query.phone,
-    req.query.gender], function(err){
-      if(err){
-        next(err);
-        return;
-      }
-      queryString = "SELECT `id`, `fname`, `lname`, `dob`, `email`, `address`, `phone`, `gender` FROM `patient` ORDER BY `lname`";
-      pool.query(queryString,[req.query.pharmacy], function(err, rows, fields){
-        if(err){
-          next(err);
-          return;
-        }
-        context.results = rows;
-        res.send(context);
-        return;
-      });
-    });
+    params = [req.query.fname,req.query.lname, req.query.dob, req.query.email, req.query.address, req.query.phone, req.query.gender];
+    sqlQuer(queryString,params,selectString,res,next,selectQuer);
   }
   else if (req.query.search == "true"){
     queryString = "SELECT `id`, `fname`, `lname`, `dob`, `email`, `address`, `phone`, `gender` FROM `patient` WHERE `fname` REGEXP ? AND `lname` REGEXP ? AND `phone` REGEXP ? AND `email` REGEXP ?";
@@ -258,63 +160,25 @@ app.get('/patient',function(req,res,next){
       console.log(queryString);
       console.log(req.query);
     }
-    pool.query(queryString,
-    [req.query.fname,
-    req.query.lname,
-    req.query.phone,
-    req.query.email,
-    req.query.dob,
-    req.query.gender],
-    function(err, rows, fields){
-      if(err){
-        next(err);
-        return;
-      }
-      context.results = rows;
-      console.log(rows);
-      res.send(context);
-      return;
-    });
+    params = [req.query.fname, req.query.lname, req.query.phone, req.query.email, req.query.dob, req.query.gender];
+    selectQuer(queryString,res, next, params);
   }
   else if(req.query.patientid == "true"){
     console.log(req.query);
     queryString = "SELECT `id`, `fname`, `lname`, `dob`, `email`, `address`, `phone`, `gender` FROM `patient` WHERE `id` = ?";
-    pool.query(queryString, [req.query.id],
-      function(err, rows, fields){
-        if(err){
-          next(err);
-          return;
-        }
-        context.results = rows;
-        res.send(context);
-        return;
-      });
+    params = [req.query.id];
+    sqlQuer(queryString, params, selectString, res, next, selectQuer);
   }
   else if(req.query.delete == "true"){//delete function
-    queryString = "";       //*WRITE DELETE QUERY
-    pool.query(queryString,[req.query.dea], function(err, result) {
-      if(err){
-        next(err);
-        return;
-      }
-      queryString = "SELECT `id`, `fname`, `lname`, `dob`, `email`, `address`, `phone`, `gender` FROM `patient` ORDER BY `lname`";
-      pool.query(queryString, function(err, rows, fields){
-        if(err){
-          next(err);
-          return;
-        }
-        context.results = rows;
-        res.send(context);
-        return;
-      });
-    });
+    queryString = "DELETE FROM `patient` WHERE `id` = ?";
+    params = [req.query.id];
+    sqlQuer(queryString, params, selectString, res, next, selectQuer);
   }
   else{//if no relevant query was made, the home page is served 
     res.render('patient');
     return;
   } 
 });
-
 //SALE page route
 app.get('/sale',function(req,res,next){
   var context = {};

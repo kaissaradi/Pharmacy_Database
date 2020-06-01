@@ -40,7 +40,6 @@ footer {
 .table-responsive{
     height: 300px;       
     overflow: scroll;
-    background-color: #343a40;
     border-collapse: collapse;
 }
 

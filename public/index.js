@@ -14,8 +14,11 @@ document.getElementById('reset_btn').addEventListener('click', function(event){
 
 //Create Event - create a get request with the users query to INSERT INTO the table
 document.getElementById('add_pharmacy_btn').addEventListener('click', function(event){
-   createReq();
+  createReq();
   event.preventDefault();
+  setTimeout(function(){
+    readReq(); 
+  }, 250);
 });
 
 //Search Event - create a get request with the users query to SELECT FROM the table
@@ -24,9 +27,20 @@ document.getElementById('search_pharmacy_btn').addEventListener('click', functio
   event.preventDefault();
 });
 
+//Select Event - create a get to view patient prescriptions in a new table
+document.body.addEventListener('click', function(event){
+  if(event.srcElement.className == "delete btn dark-green"){
+    deleteReq(event.srcElement.id);
+  }
+});
+
 /* *********************************
               FUNCTIONS 
 ************************************/
+function addElement
+
+
+
 //Function to add a row to the pharmacy table and fill it in with the information passed to it from the SQL database table
 function createTable(resp, table_id){
   var table = document.getElementById(table_id);
@@ -97,9 +111,9 @@ function createTable(resp, table_id){
       var deleteButton = document.createElement("Input")
       deleteButton.setAttribute("type", "button");
       deleteButton.value = "Delete";
-      deleteButton.className = "btn dark-green"
-      deleteButton.style.float = "right";
-      deleteButton.id = "delete_btn";
+      deleteButton.className = "delete btn dark-green"
+    deleteButton.style.float = "right";
+      deleteButton.id = row.dea;
       var input = document.createElement('input');
       input.type = "hidden";
       input.id = row.dea;
@@ -167,6 +181,25 @@ function searchReq(){
   "&address="+address+
   "&phone="+phone+
   "&fax="+fax;
+  //send get request
+  req.open("GET",payload, true);                 
+  req.addEventListener('load', function(){                       
+    if(req.status >= 200 && req.status < 400){
+      var response = JSON.parse(req.responseText); 
+      createTable(response, "pharmacies");    //display the response information in the pharmacy table
+    }
+    else {
+      console.log("error");
+    }
+  });
+  req.send(payload);
+}
+
+function deleteReq(dea){
+  var req = new XMLHttpRequest(); 
+  //create query string with regular expressions
+  var payload = "/?" + "delete=true" +
+  "&dea="+dea;
   //send get request
   req.open("GET",payload, true);                 
   req.addEventListener('load', function(){                       
