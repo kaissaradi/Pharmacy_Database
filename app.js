@@ -134,7 +134,7 @@ app.get('/order',function(req,res,next){
 app.get('/patient',function(req,res,next){
   var context = {};
   var queryString;
-  var  selectString = "SELECT `id`, `fname`, `lname`, `dob`, `email`, `address`, `phone`, `gender` FROM `patient` ORDER BY `lname`";
+  var selectString = "SELECT `id`, `fname`, `lname`, `dob`, `email`, `address`, `phone`, `gender` FROM `patient` ORDER BY `lname`";
   var params = [];
   if(req.query.read == "true"){
     selectQuer(selectString, res, next);
@@ -157,17 +157,14 @@ app.get('/patient',function(req,res,next){
     }
     else{
       queryString += " ORDER BY `lname`";
-      console.log(queryString);
-      console.log(req.query);
     }
     params = [req.query.fname, req.query.lname, req.query.phone, req.query.email, req.query.dob, req.query.gender];
     selectQuer(queryString,res, next, params);
   }
   else if(req.query.patientid == "true"){
-    console.log(req.query);
     queryString = "SELECT `id`, `fname`, `lname`, `dob`, `email`, `address`, `phone`, `gender` FROM `patient` WHERE `id` = ?";
     params = [req.query.id];
-    sqlQuer(queryString, params, selectString, res, next, selectQuer);
+    selectQuer(queryString, res, next, params);
   }
   else if(req.query.delete == "true"){//delete function
     queryString = "DELETE FROM `patient` WHERE `id` = ?";
@@ -194,7 +191,6 @@ app.get('/sale',function(req,res,next){
     });
   }
 });
-
 //error handling
 app.use(function(req, res) {
     res.status(404);

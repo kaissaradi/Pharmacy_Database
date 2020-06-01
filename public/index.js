@@ -37,93 +37,69 @@ document.body.addEventListener('click', function(event){
 /* *********************************
               FUNCTIONS 
 ************************************/
-function addElement
+//function to add a new element to the DOM. take a parent node to attatch the object to
+// the type of element to create, and optionall a class, id, and innner text
+function addElement(parent, elementType, classNm, idName, text){
+  newElement = document.createElement(elementType);
+  parent.append(newElement);
+  if(classNm){
+    newElement.className = classNm; 
+  }
+  if(idName){
+    newElement.id = idName;
+  }
+  if(text){
+    newElement.innerText = text;
+  }
+  return newElement;
+}
 
-
-
-//Function to add a row to the pharmacy table and fill it in with the information passed to it from the SQL database table
+//Function to create a new table with MYSQL Query data and replace the current table on the DOM
 function createTable(resp, table_id){
   var table = document.getElementById(table_id);
   table.id = "oldTable";
-  //create new table, using response data for values
+  //create new table, using response data for values and replace the current table on the page
   var newTable = document.createElement('table');
   newTable.id = table_id;
   newTable.className = "table table-bordered table-hover table-dark";
-  //create table head
-  var thead = document.createElement('thead');
-  thead.className = "light-green";
-  var th = document.createElement('th');
+  table.parentNode.replaceChild(newTable, table);   
+  //create table head with column headers
+  var thead = addElement(newTable, 'thead', 'light-green');
+  var th = addElement(thead, 'th', undefined, undefined, 'Name');
   th.scope = "col";
-  th.innerText = "Name";
-  thead.append(th);
-  var th = document.createElement('th');
+  var th = addElement(thead, 'th', undefined, undefined, 'Address');
   th.scope = "col";
-  th.innerText = "Address";
-  thead.append(th);
-  var th = document.createElement('th');
+  var th = addElement(thead, 'th', undefined, undefined, 'Phone');
   th.scope = "col";
-  th.innerText = "Phone";
-  thead.append(th);
-  var th = document.createElement('th');
+  var th = addElement(thead, 'th', undefined, undefined, 'Fax');
   th.scope = "col";
-  th.innerText = "Fax";
-  thead.append(th);
-  var th = document.createElement('th');
+  var th = addElement(thead, 'th', undefined, undefined, 'DEA');
   th.scope = "col";
-  th.innerText = "DEA";
-  thead.append(th);
-  var th = document.createElement('th');
+  var th = addElement(thead, 'th', undefined, undefined, 'Change');
   th.scope = "col";
-  th.innerText = "Change Value";
-  thead.append(th);
-  newTable.append(thead);
-  var tbody = document.createElement('tbody');
-  newTable.append(tbody);
-//add each row from database to tbody
-  for (var row of resp.results) {
+  //create table body with each row
+  var tbody = addElement(newTable, 'tbody');
+  for (var row of resp.results) {     //create a row for each entry
     if (row.id != '') {
-      var newRow = document.createElement("tr");  //create a row
+      var newRow =  addElement(tbody, 'tr');
       //loop through each cell and label it accordingly
-      var cell = document.createElement("td");
-      cell.innerText = row.name;
-      newRow.append(cell);
-      var cell = document.createElement("td");
-      cell.innerText = row.address;
-      newRow.append(cell);
-      var cell = document.createElement("td");
-      cell.innerText = row.phone;
-      newRow.append(cell);
-      var cell = document.createElement("td");
-      cell.innerText = row.fax;
-      newRow.append(cell);
-      var cell = document.createElement("td");
-      cell.innerText = row.dea;
-      newRow.append(cell);
+      var cell = addElement(newRow, 'td', undefined, undefined, row.name);
+      var cell = addElement(newRow, 'td', undefined, undefined, row.address);
+      var cell = addElement(newRow, 'td', undefined, undefined, row.phone);
+      var cell = addElement(newRow, 'td', undefined, undefined, row.fax);
+      var cell = addElement(newRow, 'td', undefined, undefined, row.dea);
       //create a button to edit and delete the data
-      var editButton = document.createElement("Input")
+      var editButton = addElement(newRow, 'Input', 'edit btn dark-green', row.dea)
       editButton.setAttribute("type", "button");
       editButton.value = "Edit";
-      editButton.className = "btn dark-green"
       editButton.style.float = "left";
-      editButton.id = row.dea;
-      //editButton.setAttribute("onclick", "editRow(this.id)")    //calls function to update table when called
-      newRow.append(editButton);
-      var deleteButton = document.createElement("Input")
+      //create delete button
+      var deleteButton = addElement(newRow, 'Input', 'delete btn dark-green', row.dea);
       deleteButton.setAttribute("type", "button");
       deleteButton.value = "Delete";
-      deleteButton.className = "delete btn dark-green"
-    deleteButton.style.float = "right";
-      deleteButton.id = row.dea;
-      var input = document.createElement('input');
-      input.type = "hidden";
-      input.id = row.dea;
-      deleteButton.append(input);
-      //editButton.setAttribute("onclick", "editRow(this.id)")    //calls function to update table when called
-      newRow.append(deleteButton);
-      tbody.append(newRow)  //add the row to the table body
+      deleteButton.style.float = "right";
     }
   }
-  table.parentNode.replaceChild(newTable, table);   //replace the old table body with the new info
 }
 
 function readReq(){

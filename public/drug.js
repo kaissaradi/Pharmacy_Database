@@ -27,97 +27,65 @@ document.getElementById('search_drug_btn').addEventListener('click', function(ev
 /* *********************************
               FUNCTIONS 
 ************************************/
-//Function to add a row to the pharmacy table and fill it in with the information passed to it from the SQL database table
+//function to add a new element to the DOM. take a parent node to attatch the object to
+// the type of element to create, and optionall a class, id, and innner text
+function addElement(parent, elementType, classNm, idName, text){
+  newElement = document.createElement(elementType);
+  parent.append(newElement);
+  if(classNm){
+    newElement.className = classNm; 
+  }
+  if(idName){
+    newElement.id = idName;
+  }
+  if(text){
+    newElement.innerText = text;
+  }
+  return newElement;
+}
+//Function to create a new table with MYSQL Query data and replace the current table on the DOM
 function createTable(resp, table_id){
   var table = document.getElementById(table_id);
   table.id = "oldTable";
-  //create new table, using response data for values
+  //create new table, using response data for values and replace the current table on the page
   var newTable = document.createElement('table');
   newTable.id = table_id;
   newTable.className = "table table-bordered table-hover table-dark";
-  //create table head
-  var thead = document.createElement('thead');
-  thead.className = "light-green";
-  var th = document.createElement('th');
+  table.parentNode.replaceChild(newTable, table);   
+  //create table head with column headers
+  var thead = addElement(newTable, 'thead', 'light-green');
+  var th = addElement(thead, 'th', undefined, undefined, 'NDC');
   th.scope = "col";
-  th.innerText = "NDC";
-  thead.append(th);
-
-  var th = document.createElement('th');
+  var th = addElement(thead, 'th', undefined, undefined, 'Name');
   th.scope = "col";
-  th.innerText = "Name";
-  thead.append(th);
-
-  var th = document.createElement('th');
+  var th = addElement(thead, 'th', undefined, undefined, 'Strength');
   th.scope = "col";
-  th.innerText = "strength";
-  thead.append(th);
-
-  var th = document.createElement('th');
+  var th = addElement(thead, 'th', undefined, undefined, 'Price');
   th.scope = "col";
-  th.innerText = "price";
-  thead.append(th);
-
-  var th = document.createElement('th');
+  var th = addElement(thead, 'th', undefined, undefined, 'QTY');
   th.scope = "col";
-  th.innerText = "QTY";
-  thead.append(th);
-
-  var th = document.createElement('th');
+  var th = addElement(thead, 'th', undefined, undefined, 'Update');
   th.scope = "col";
-  th.innerText = "Change Value";
-  thead.append(th);
-
-  newTable.append(thead);
-  var tbody = document.createElement('tbody');
-  newTable.append(tbody);
-//add each row from database to tbody
-  for (var row of resp.results) {
+  //create table body with each row
+  var tbody = addElement(newTable, 'tbody');
+  for (var row of resp.results) {     //create a row for each entry
     if (row.id != '') {
-      var newRow = document.createElement("tr");  //create a row
+      var newRow =  addElement(tbody, 'tr');
       //loop through each cell and label it accordingly
-      var cell = document.createElement("td");
-      cell.innerText = row.ndc;
-      newRow.append(cell);
-      var cell = document.createElement("td");
-      cell.innerText = row.name;
-      newRow.append(cell);
-      var cell = document.createElement("td");
-      cell.innerText = row.strength;
-      newRow.append(cell);
-      var cell = document.createElement("td");
-      cell.innerText = row.price;
-      newRow.append(cell);
-      var cell = document.createElement("td");
-      cell.innerText = row.qty;
-      newRow.append(cell);
+      var cell = addElement(newRow, 'td', undefined, undefined, row.ndc);
+      var cell = addElement(newRow, 'td', undefined, undefined, row.name);
+      var cell = addElement(newRow, 'td', undefined, undefined, row.strength);
+      var cell = addElement(newRow, 'td', undefined, undefined, row.price);
+      var cell = addElement(newRow, 'td', undefined, undefined, row.qty);
       //create a button to edit and delete the data
-      var editButton = document.createElement("Input")
+      var editButton = addElement(newRow, 'Input', 'btn dark-green', row.ndc)
       editButton.setAttribute("type", "button");
-      editButton.value = "Edit";
-      editButton.className = "btn dark-green"
+      editButton.value = "Update";
       editButton.style.float = "left";
-      editButton.id = row.ndc;
-      //editButton.setAttribute("onclick", "editRow(this.id)")    //calls function to update table when called
-      newRow.append(editButton);
-      var deleteButton = document.createElement("Input")
-      deleteButton.setAttribute("type", "button");
-      deleteButton.value = "Delete";
-      deleteButton.className = "btn dark-green"
-      deleteButton.style.float = "right";
-      deleteButton.id = "delete_btn";
-      var input = document.createElement('input');
-      input.type = "hidden";
-      input.id = row.ndc;
-      deleteButton.append(input);
-      //editButton.setAttribute("onclick", "editRow(this.id)")    //calls function to update table when called
-      newRow.append(deleteButton);
-      tbody.append(newRow)  //add the row to the table body
     }
   }
-  table.parentNode.replaceChild(newTable, table);   //replace the old table body with the new info
 }
-
+//Request to SELECT all rows from table
 function readReq(){
   //Read Event - create a get request to SELECT FROM the table
   var req = new XMLHttpRequest(); //create query string
@@ -135,7 +103,7 @@ function readReq(){
   });
   req.send(payload);
 }
-
+//Request to INSERT a new entry in the table
 function createReq(){
   var req = new XMLHttpRequest(); //create query string
   var form = document.getElementById('insert_drug_form');
@@ -158,7 +126,7 @@ function createReq(){
   });
   req.send(payload);
 }
-
+//DMQ to search for specific drug using reglar expressions
 function searchReq(){
   var req = new XMLHttpRequest(); 
   //create query string with regular expressions
