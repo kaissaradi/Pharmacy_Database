@@ -6,14 +6,7 @@ body{
     overflow-x: hidden;
     padding: 0px;
     text-align: center;
-}
-.container-fluid{
-    padding-bottom: 50px;
-}
-.navbar{
-    color: antiquewhite;
-    width: 100%;
-    border: 100px antiquewhite;
+    background-color: #d2e0d980;
 }
 
 a{
@@ -30,10 +23,36 @@ footer {
     bottom: 0;
     width: 100%;
     text-align: center;
-    border-top: 10px solid white;
+    border-top: 10px #d2e0d980;
     color: antiquewhite;
 }
 
+/* classes */
+.container-fluid{
+    padding-bottom: 50px;
+}
+.navbar{
+    color: antiquewhite;
+    width: 100%;
+    border: 100px antiquewhite;
+}
+
+.table-responsive{
+    height: 300px;       
+    overflow: scroll;
+    background-color: #343a40;
+    border-collapse: collapse;
+}
+
+.table th{
+    position: sticky;
+    top: 0;
+    background-color: rgb(21, 197, 83);
+    border: 0px;
+}
+
+
+/* colors */
 .light-green{
     background-color:  rgb(21, 197, 83);
 }

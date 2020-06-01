@@ -1,76 +1,57 @@
 <div class="container-fluid" id="body">
-  <form class="col-6 float-right" id="update">
-    <div class="form-group row">
-      <legend>Update On-Hand Quantity</legend>
-      <label for="searchItem" class="col-form-label">NDC</label>
-      <div class="col-4">
-          <input type="number" name="NDC" class="form-control" placeholder="xxxxx-xxxx-xx">
-      </div>
-      <label for="searchItem" class="col-form-label">QTY On-Hand</label>
-      <div class="col-4">
-          <input type="number" name="NDC" class="form-control" placeholder="xxxxx-xxxx-xx">
-      </div>
-    </div>
-    <button type="submit" id="updateDrug" class="btn dark-green">Update</button> </br>
-  </form>
-  <form class="col-6" id="search">
-    <legend class="">Search Drug</legend>
-    <div class="form-group row">
-      <label for="searchItem" class="col-form-label">Drug Name</label>
-      <div class="col-6">
-          <input type="text" name="drug" class="form-control" placeholder="Name">
-      </div>
-      <button type="submit" id="searchItem" class="btn dark-green">Search</button>
-    </div>
-    <div class="form-group row">
-      <label for="drug_id" class="col-form-label">NDC</label>
-      <div class="col-6">
-          <input type="number" name="drug_id" class="form-control" placeholder="xxxxx-xxxx-xx"></label>
-      </div>
-      <button type="submit" id="searchItem" class="btn dark-green">Search</button>
-    </div>
-  </form>
-  <br>
-  <div style="padding: 10px;" class="container">
-    <!--It will generate a list for existing item-->'          
-    <h2 style="text-align: left;">Inventory</h2>
-    <table class="table" id= "existD">
-      <thead class="light-green">
-        <th>NDC</th>
-        <th>Name</th>
-        <th>Price</th>
-        <th>Strength</th>
-        <th>Inventory</th>
-      </thead>
-      <tr>
-        <td>00000-0000-00</td>
-        <td>Aspirin</td>
-        <td>0.32$</td>
-        <td>81 MG</td>
-        <td>300</td>
-      </tr>
-    </table>
-  </div>
-  <form class="col-12" id="add">
+  <form action="submit" class="col-12" id="insert_drug_form">
     <legend class="">Add Drug</legend>
     <div class="form-group row">
-      <label for="addItem" class="col-form-label">Name</label>
+      <label class="col-form-label">Name</label>
       <div class="col-2">
-        <input type="text" name="drug" class="form-control" placeholder="Name">
+        <input type="text" name="add_name" class="form-control" placeholder="Name">
       </div>
-      <label for="addItem" class="col-form-label">NDC</label>
+      <label class="col-form-label">NDC</label>
       <div class="col-2">
-        <input type="number" name="NDC" class="form-control" placeholder="xxxxx-xxxx-xx">
+        <input type="number" name="add_ndc" class="form-control" placeholder="xxxxx-xxxx-xx">
       </div>
-      <label for="addItem" class="col-form-label">Price</label>
+      <label class="col-form-label">Price</label>
       <div class="col-2">
-          <input type="number" step="0.01" name="price" class="form-control" placeholder="$0.00">
+          <input type="number" step="0.01" name="add_price" class="form-control" placeholder="$0.00">
       </div>
-      <label for="addItem" class="col-form-label">Strength</label>
+      <label class="col-form-label">Strength</label>
       <div class="col-2">
-        <input type="number" step="0.01" name="strength" class="form-control" placeholder="0 mg">
+        <input type="number" step="0.01" name="add_strength" class="form-control" placeholder="0 mg">
       </div>
-      <button type="submit" id="addItem" class="btn dark-green">Add</button>
+      <button type="submit" id="add_drug_btn" class="btn dark-green">Add</button>
     </div>
   </form>
+  <form action="submit" class="col-12" id="search_drug_form">
+    <legend >Search Drugs</legend>
+    <div class="form-group row">
+      <label class="col-form-label">Name</label>
+      <div class="col-2">
+        <input type="text" name="search_name" class="form-control" placeholder="Name">
+      </div>
+      <label class="col-form-label">NDC</label>
+      <div class="col-2">
+        <input type="number" name="search_ndc" class="form-control" placeholder="xxxxx-xxxx-xx">
+      </div>
+      <label class="col-form-label">Price</label>
+      <div class="col-2">
+          <input type="number" step="0.01" name="search_price" class="form-control" placeholder="$0.00">
+      </div>
+      <label class="col-form-label">Strength</label>
+      <div class="col-2">
+        <input type="number" step="0.01" name="search_strength" class="form-control" placeholder="0 mg">
+      </div>
+      <button type="submit" id="search_drug_btn" class="btn dark-green ">Search</button>
+      <div class="col-1">
+        <button id="reset_btn" class="btn dark-green">Reset</button>
+      </div>
+    </div>
+  </form>
+    <!--It will generate a list for existing item-->'          
+  <h2 style="text-align: left;">Inventory</h2>
+  <div class="table-responsive">
+    <table class="table" id= "drugs">
+      {{!-- Query information gets inserted here --}}
+    </table>
+  </div>
 </div>
+<script src="./drug.js"><{{!}}/script>

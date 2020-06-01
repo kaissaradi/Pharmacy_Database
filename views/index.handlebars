@@ -13,45 +13,72 @@
     </div>
   </div>
     <div style="padding-top: 30px;" class="container-fluid">
-      <form action="" id="insert_pharmacy_form">
+      <form action="submit" id="insert_pharmacy_form">
+        <legend>Add New Pharmacy</legend>
         <div class="input-group">
           <div class="input-group-prepend">
               <span class="input-group-text dark-green">Pharmacy</span>
           </div>
-          <input id="name" type="text" class="form-control" placeholder="Fred Meyer">
+          <input id="add_name" type="text" class="form-control" placeholder="Fred Meyer">
           <div class="input-group-prepend">
               <span class="input-group-text dark-green">Number</span>
           </div>
-          <input id="phone" type="text" class="form-control" placeholder="888-000-0000">
+          <input id="add_phone" type="text" class="form-control" placeholder="8880000000">
           <div class="input-group-prepend">
               <span class="input-group-text dark-green">Fax</span>
           </div>
-          <input id="fax" type="text" class="form-control" placeholder="888-000-0000">
+          <input id="add_fax" type="text" class="form-control" placeholder="8880000000">
           <div class="input-group-prepend">
               <span class="input-group-text dark-green">Address</span>
           </div>
-          <input id="address" type="text" class="form-control" placeholder="100th st">
+          <input id="add_address" type="text" class="form-control" placeholder="100th st">
           <div class="input-group-prepend">
               <span id="dea" class="input-group-text dark-green">DEA</span>
           </div>
-          <input id="dea" type="text" class="form-control" placeholder="XX000000000">
+          <input id="add_dea" type="text" class="form-control" placeholder="0000000000">
           <button type="submit" id="add_pharmacy_btn" class="btn dark-green">Add</button>
         </div>
       </form>
-      <div style="padding-top: 10px;" class="container">
-        <table class="table">
-          <thead class="light-green">
-            <th scope="col">Name</th>
-            <th scope="col">Address</th>
-            <th scope="col">Phone</th>
-            <th scope="col">Fax</th>
-            <th scope="col">DEA</th>
-            <th scope="col">Edit</th>
-          </thead>
-          <tbody id="pharmacy_tbody">
-          </tbody>
+      <form action="submit" id="search_pharmacy_form">
+      <legend>Lookup Pharmacy</legend>
+        <div class="input-group">
+          <div class="input-group-prepend">
+              <span class="input-group-text dark-green">Pharmacy</span>
+          </div>
+          <input id="search_name" type="text" class="form-control" placeholder="Fred Meyer">
+
+          <div class="input-group-prepend">
+              <span class="input-group-text dark-green">Number</span>
+          </div>
+          <input id="search_phone" type="text" class="form-control" placeholder="8880000000">
+
+          <div class="input-group-prepend">
+              <span class="input-group-text dark-green">Fax</span>
+          </div>
+          <input id="search_fax" type="text" class="form-control" placeholder="8880000000">
+
+          <div class="input-group-prepend">
+              <span class="input-group-text dark-green">Address</span>
+          </div>
+          <input id="search_address" type="text" class="form-control" placeholder="100th st">
+
+          <div class="input-group-prepend">
+              <span id="dea" class="input-group-text dark-green">DEA</span>
+          </div>
+          <input id="search_dea" type="text" class="form-control" placeholder="0000000000">
+
+          <button type="submit" id="search_pharmacy_btn" class="btn dark-green">Search</button>
+          <div class="col-1">
+            <button id="reset_btn" class="btn dark-green">Reset</button>
+          </div>
+        </div>
+      </form>
+      <legend>Pharmacies</legend>
+      <div class="table-responsive">
+        <table class="table-fixed table-bordered table-hover table-dark" id="pharmacies">
+          {{!-- Query information gets inserted here --}}
         </table>
       </div>
     </div>
 </div>
-<script src="./script.js"><{{!}}/script>
+<script src="./index.js"><{{!}}/script>

@@ -1,157 +1,122 @@
 <div class="container-fluid" id="body">
-<form class="col-12" id="search">
-  <legend class="">Search Patients</legend>
-  <div class="form-group row">
-    <label for="searchP" class="col-form-label">Last Name</label>
-    <div class="col-3">
-        <input type="text" name="fist" class="form-control" placeholder="Smith">
-    </div><br>
-    <label for="searchP" class="col-form-label">First Name</label>
-    <div class="col-3">
-        <input type="text" name="last" class="form-control" placeholder="Bob">
-    </div>
-    <label for="searchP" class="col-form-label">DOB</label>
-    <div class="col-3">
-        <input type="date" name="last" class="form-control">
-    </div>
-  </div>
-  <div class="form-group row">
-    <label for="searchP" class="col-form-label">Email</label>
-    <div class="col-3">
-        <input type="email" name="email" class="form-control" placeholder="saradik@oregonstate.edu"></label>
-    </div>
-    <label for="searchP" class="col-form-label">Phone</label>
-    <div class="col-3">
-        <input type="text" name="phone" class="form-control" placeholder="888-555-555"></label>
-    </div>
-    <button type="submit" id="searchP" class="btn dark-green">Search</button>
-  </div>
-</form>
-<form class="col-12" id="add">
+<form action="submit" class="col-12" id="insert_patient_form">
   <legend class="">Add Patient</legend>
   <div class="form-group row">
-      <label for="addP" class="col-form-label">Last Name</label>
+      <label for="add_patient_btn" class="col-form-label">Last Name</label>
       <div class="col-3">
-          <input type="text" name="fist" class="form-control" placeholder="Smith">
+          <input type="text" id="add_fname" class="form-control" placeholder="Smith">
       </div><br>
-      <label for="addP" class="col-form-label">First Name</label>
+      <label for="add_patient_btn" class="col-form-label">First Name</label>
       <div class="col-3">
-          <input type="text" name="last" class="form-control" placeholder="Bob">
+          <input type="text" id="add_lname" class="form-control" placeholder="Bob">
       </div>
-      <label for="addP" class="col-form-label">DOB</label>
+      <label for="add_patient_btn" class="col-form-label">DOB</label>
       <div class="col-3">
-          <input type="date" name="last" class="form-control">
+          <input type="date" id="add_dob`" class="form-control">
       </div>
   </div>
   <div class="form-group row">
-    <label for="addP" class="col-form-label">Email</label>
+    <label for="add_patient_btn" class="col-form-label">Email</label>
     <div class="col-3">
-        <input type="text" name="email" class="form-control" placeholder="saradik@oregonstate.edu"></label>
+        <input type="text" id="add_email" class="form-control" placeholder="saradik@oregonstate.edu"></label>
     </div>
-    <label for="addP" class="col-form-label">Phone</label>
+    <label for="add_patient_btn" class="col-form-label">Phone</label>
     <div class="col-3">
-        <input type="text" name="phone" class="form-control" placeholder="888-555-555"></label>
+        <input type="text" id="add_phone" class="form-control" placeholder="888-555-555"></label>
     </div>
     <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="gender" id="male" value="male">
-        <label class="form-check-label" for="addP">Male</label>
-      </div>
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="gender" id="female" value="female">
-        <label class="form-check-label" for="addP">Female</label>
-      </div>
-    <button type="submit" id="addP" class="btn dark-green">Add</button>
+      <input class="form-check-input" type="radio" id="add_gender" id="male" value="Male">
+      <label class="form-check-label" for="add_patient_btn">Male</label>
+    </div>
+    <div class="form-check form-check-inline">
+      <input class="form-check-input" type="radio" id="add_gender" id="female" value="Female">
+      <label class="form-check-label" for="add_patient_btn">Female</label>
+    </div>
+    <button type="submit" id="add_patient_btn" class="btn dark-green">Add</button>
   </div>
 </form>
+<form action="submit" id="search_patient_form">
+  <legend class="">Search Patients</legend>
+  <div class="form-group row">
+    <label for="search_patient_btn" class="col-form-label">Last Name</label>
+    <div class="col-3">
+        <input type="text" id="search_fname" class="form-control" placeholder="Smith">
+    </div><br>
+
+    <label for="search_patient_btn" class="col-form-label">First Name</label>
+    <div class="col-3">
+        <input type="text" id="search_lname" class="form-control" placeholder="Bob">
+    </div>
+
+    <label for="search_patient_btn" class="col-form-label">DOB</label>
+    <div class="col-3">
+        <input type="date" id="search_dob" class="form-control">
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="search_patient_btn" class="col-form-label">Email</label>
+    <div class="col-3">
+        <input type="email" id="search_email" class="form-control" placeholder="saradik@oregonstate.edu"></label>
+    </div>
+
+    <label for="search_patient_btn" class="col-form-label">Phone</label>
+    <div class="col-3">
+        <input type="text" id="search_phone" class="form-control" placeholder="888-555-555"></label>
+    </div>
+
+    <label for="search_patient_btn" class="col-form-label">Gender</label>
+    <div class="col-3">
+        <input type="text" id="search_gender" class="form-control" placeholder="Male"></label>
+    </div>
+
+    <button type="submit" id="search_patient_btn" class="btn dark-green">Search</button>
+    <div class="col-1">
+      <button id="reset_btn" class="btn dark-green">Reset</button>
+    </div>
+  </div>
+</form>
+<legend>Patients</legend>
+<div class="table-responsive">
+  <table class="table table-bordered table-hover table-dark" id="patients"></table>
+</div>
+<div class="table-responsive">
+  <table class="table table-bordered table-hover table-dark" id="search_patient"></table>
+</div>
 <form class="col-12" id="update">
   <legend class="">Update Patient Info</legend>
   <div class="form-group row">
       <label for="updateP" class="col-form-label">Last Name</label>
       <div class="col-3">
-          <input type="text" name="fist" class="form-control" placeholder="Smith">
+          <input type="text" id="fist" class="form-control" placeholder="Smith">
       </div><br>
       <label for="updateP" class="col-form-label">First Name</label>
       <div class="col-3">
-          <input type="text" name="last" class="form-control" placeholder="Bob">
+          <input type="text" id="last" class="form-control" placeholder="Bob">
       </div>
       <label for="updateP" class="col-form-label">DOB</label>
       <div class="col-3">
-          <input type="date" name="last" class="form-control">
+          <input type="date" id="last" class="form-control">
       </div>
   </div>
   <div class="form-group row">
       <label for="updateP" class="col-form-label">Email</label>
       <div class="col-3">
-          <input type="text" name="email" class="form-control" placeholder="saradik@oregonstate.edu"></label>
+          <input type="text" id="email" class="form-control" placeholder="saradik@oregonstate.edu"></label>
       </div>
       <label for="updateP" class="col-form-label">Phone</label>
       <div class="col-3">
-          <input type="text" name="phone" class="form-control" placeholder="888-555-555"></label>
+          <input type="text" id="phone" class="form-control" placeholder="888-555-555"></label>
       </div>
       <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="gender" id="male" value="male">
+          <input class="form-check-input" type="radio" id="gender" id="male" value="male">
           <label class="form-check-label" for="updateP">Male</label>
         </div>
         <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="gender" id="female" value="female">
+          <input class="form-check-input" type="radio" id="gender" id="female" value="female">
           <label class="form-check-label" for="updateP">Female</label>
         </div>
       <button type="submit" id="updateP" class="btn dark-green">Update</button>
   </div>
 </form>
-<div class="container-fluid"><table class="table table-bordered table-hover table-dark" id= "existC">
-  <legend style="font-size: 30px">List of Patients</legend>
-  <thead class="light-green">
-    <th>DOB</th>
-    <th>Last Name</th>
-    <th>First Name</th>
-    <th>Age</th>
-    <th>Gender</th>
-    <th>Email</th>
-    <th>Address</th>
-    <th>Update Patient Info</th>
-  </thead>
-  <tr>
-    <td>03/03/2000</td>
-    <td>Trump</td>
-    <td>Donald</td>
-    <td>73</td>
-    <td>Male</td>
-    <td>NULL</td>
-    <td>100 5th st</td>
-    <td><button type="submit" id="updateP" class="btn dark-green">Update</button></td>
-  </tr>
-  <tr>
-    <td>03/03/2000</td>
-    <td>James</td>
-    <td>Baldwin</td>
-    <td>19</td>
-    <td>Male</td>
-    <td>NULL</td>
-    <td>111 10th AVE</td>
-    <td><button type="submit" id="updateP" class="btn dark-green">Update</button></td>
-  </tr>
-</table></div> 
-<div class="container-fluid"><table class="table table-bordered table-dark" id= "pt">
-  <legend style="font-size: 30px">Patient Prescriptions</legend>
-  <thead class="light-green">
-    <th>RX</th>
-    <th>Drug</th>
-    <th>Strenth</th>
-    <th>Date</th>
-  </thead>
-  <tr>
-    <td>432558</td>
-    <td>Aspirin</td>
-    <td>81 MG</td>
-    <td>03/03/2009</td>
-  </tr>
-  <tr>
-    <td>0432668</td>
-    <td>Tylenol</td>
-    <td>325 MG</td>
-    <td>0101/2015</td>
-  </tr>
-</table></div>
 </div>
-<footer class="light-green"">Group 47</footer>
+<script src="./patient.js"><{{!}}/script>

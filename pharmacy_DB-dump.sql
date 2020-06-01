@@ -34,7 +34,7 @@ CREATE TABLE `drug` (
   `pharmacy` int(11) NOT NULL,
   `strength` int(11) NOT NULL,
   `price` decimal(8,2) DEFAULT NULL,
-  `qty` int(11) DEFAULT NULL
+  `qty` int(11) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
