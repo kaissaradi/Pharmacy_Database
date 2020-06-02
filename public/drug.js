@@ -6,6 +6,7 @@ window.addEventListener('load', function(event){
   readReq();
   event.preventDefault();
 });
+
 //reset selected rows from drug table
 document.getElementById('reset_btn').addEventListener('click', function(event){
   readReq();
@@ -22,6 +23,16 @@ document.getElementById('add_drug_btn').addEventListener('click', function(event
 document.getElementById('search_drug_btn').addEventListener('click', function(event){
   searchReq();
   event.preventDefault();
+});
+//Select Event - create a get to view patient prescriptions in a new table
+document.body.addEventListener('click', function(event){
+  if(event.srcElement.className == "update btn dark-green"){
+    console.log(event.srcElement.id);
+    updateDrug(event.srcElement.id);
+  }
+  setTimeout(function(){
+    readReq(); 
+  }, 250);
 });
 
 /* *********************************
@@ -78,10 +89,9 @@ function createTable(resp, table_id){
       var cell = addElement(newRow, 'td', undefined, undefined, row.price);
       var cell = addElement(newRow, 'td', undefined, undefined, row.qty);
       //create a button to edit and delete the data
-      var editButton = addElement(newRow, 'Input', 'btn dark-green', row.ndc)
+      var editButton = addElement(newRow, 'Input', 'update btn dark-green', row.ndc)
       editButton.setAttribute("type", "button");
       editButton.value = "Update";
-      editButton.style.float = "left";
     }
   }
 }
@@ -138,6 +148,27 @@ function searchReq(){
   "&name="+name+
   "&ndc="+ndc+
   "&strength="+strength+
+  "&pharmacy=1";
+  //send get request
+  req.open("GET",payload, true);                 
+  req.addEventListener('load', function(){                       
+    if(req.status >= 200 && req.status < 400){
+      var response = JSON.parse(req.responseText); 
+      createTable(response, "drugs");    //display the response information in the pharmacy table
+    }
+    else {
+      console.log("error");
+    }
+  });
+  req.send(payload);
+}
+//function to UPDATE the qty of a drug
+function updateDrug(ndc){
+  var req = new XMLHttpRequest(); 
+  //create query string with regular expressions
+  var payload = "/drug?" + "update=true" +
+  "&ndc="+ ndc +
+  "&qty=" + document.getElementById('update_qty').value +
   "&pharmacy=1";
   //send get request
   req.open("GET",payload, true);                 

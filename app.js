@@ -55,6 +55,7 @@ function sqlQuer(quer, params, selectString, res, next, selectQuer){
       next(err);
       return;
     }
+    console.log("success");
     selectQuer(selectString, res, next);
     return;
   });
@@ -112,9 +113,11 @@ app.get('/drug',function(req,res,next){
     querystring = "";          //*write delete query
     sqlQuer(queryString, params, selectString, res, next, selectQuer);
   }
-  else if(req,query.update == "true"){  // add update
-      queryString = "UPDATE `qty` FROM `drug` WHERE `pharmacy` = ? AND `ndc` REGEXP ?";
-      params = [req.query.name, req.query.ndc, req.query.strength, req.query.price, req.query.qty, req.query.pharmacy]; 
+  else if(req.query.update == "true"){  // add update
+      queryString = "UPDATE `drug` SET `qty` = ? WHERE `pharmacy` = ? AND `ndc` = ?";
+      selectString = "SELECT `ndc`, `name`, `strength`, `price`, `qty` FROM `drug` WHERE `pharmacy` = " + req.query.pharmacy + " ORDER BY `name`";
+      console.log(req.query);
+      params = [req.query.qty, req.query.pharmacy, req.query.ndc]; 
       sqlQuer(queryString, params, selectString, res, next, selectQuer);
   }
   else{//if no relevant query was made, the home page is served 
