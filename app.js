@@ -178,6 +178,24 @@ app.get('/patient',function(req,res,next){
     params = [req.query.id];
     sqlQuer(queryString, params, selectString, res, next, selectQuer);
   }
+  else if(req.query.updated == "true"){   //update function
+    queryString = "UPDATE `id`, `fname`, `lname`, `dob`, `email`, `address`, `phone`, `gender` FROM `patient` WHERE `id` = ?"  ;
+    //params = [];
+    if (req.query.dob != "" && req.query.gender != "") {
+      queryString += " AND `dob` = ? AND `gender` = ? ORDER BY `lname`";
+    }
+    else if(req.query.dob != ""){
+      queryString += " AND `dob` = ? ORDER BY `lname`";
+    }
+    else if(req.query.gender != ""){
+      queryString += " AND `gender = ? ORDER BY `lname`";
+    }
+    else{
+      queryString += " ORDER BY `lname`";
+    }
+    params = [req.query.id];
+    selectQuer(queryString, res, next, params);
+  }
   else{//if no relevant query was made, the home page is served 
     res.render('patient');
     return;
