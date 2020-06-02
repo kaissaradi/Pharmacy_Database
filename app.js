@@ -113,13 +113,13 @@ app.get('/drug',function(req,res,next){
     querystring = "";          //*write delete query
     sqlQuer(queryString, params, selectString, res, next, selectQuer);
   }
-  /*else if(req.query.update == "true"){  // add update
+  else if(req.query.update == "true"){  // add update
       queryString = "UPDATE `drug` SET `qty` = ? WHERE `pharmacy` = ? AND `ndc` = ?";
       selectString = "SELECT `ndc`, `name`, `strength`, `price`, `qty` FROM `drug` WHERE `pharmacy` = " + req.query.pharmacy + " ORDER BY `name`";
       console.log(req.query);
       params = [req.query.qty, req.query.pharmacy, req.query.ndc]; 
       sqlQuer(queryString, params, selectString, res, next, selectQuer);
-  }*/
+  }
   else{//if no relevant query was made, the home page is served 
     res.render('drug');
     return;
@@ -181,7 +181,7 @@ app.get('/patient',function(req,res,next){
     params = [req.query.id];
     sqlQuer(queryString, params, selectString, res, next, selectQuer);
   }
- /* else if(req.query.updated == "true"){   //update function
+  else if(req.query.updated == "true"){   //update function
     queryString = "UPDATE `id`, `fname`, `lname`, `dob`, `email`, `address`, `phone`, `gender` FROM `patient` WHERE `id` = ?"  ;
     //params = [];
     if (req.query.dob != "" && req.query.gender != "") {
@@ -198,7 +198,7 @@ app.get('/patient',function(req,res,next){
     }
     params = [req.query.id];
     selectQuer(queryString, res, next, params);
-  }*/
+  }
   else{//if no relevant query was made, the home page is served 
     res.render('patient');
     return;
