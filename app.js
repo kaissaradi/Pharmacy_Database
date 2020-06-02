@@ -20,6 +20,8 @@ var pool = mysql.createPool({
   database        : 'pharmacy_DB'
 });
 
+//pool.connect();
+
 //function to select rows from SQL database and serve context
 function selectQuer(quer, res, next, params){
   var context = {};
@@ -109,6 +111,11 @@ app.get('/drug',function(req,res,next){
   else if(req.query.delete == "true"){//delete
     querystring = "";          //*write delete query
     sqlQuer(queryString, params, selectString, res, next, selectQuer);
+  }
+  else if(req,query.update == "true"){  //update
+      queryString = "UPDATE `price`, `qty` FROM `drug` WHERE `pharmacy` = ? AND `ndc` REGEXP ?";
+      params = [];
+      sqlQuer(queryString, params, selectString, res, next, selectQuer);
   }
   else{//if no relevant query was made, the home page is served 
     res.render('drug');
