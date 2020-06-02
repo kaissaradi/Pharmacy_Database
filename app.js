@@ -112,9 +112,9 @@ app.get('/drug',function(req,res,next){
     querystring = "";          //*write delete query
     sqlQuer(queryString, params, selectString, res, next, selectQuer);
   }
-  else if(req,query.update == "true"){  //update
-      queryString = "UPDATE `price`, `qty` FROM `drug` WHERE `pharmacy` = ? AND `ndc` REGEXP ?";
-      params = [];
+  else if(req,query.update == "true"){  // add update
+      queryString = "UPDATE `qty` FROM `drug` WHERE `pharmacy` = ? AND `ndc` REGEXP ?";
+      params = [req.query.name, req.query.ndc, req.query.strength, req.query.price, req.query.qty, req.query.pharmacy]; 
       sqlQuer(queryString, params, selectString, res, next, selectQuer);
   }
   else{//if no relevant query was made, the home page is served 
