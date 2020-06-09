@@ -90,6 +90,7 @@ app.get('/',function(req,res,next){
     return;
   } 
 });
+
 //DRUG page route
 app.get('/drug',function(req,res,next){
   var queryString;
@@ -125,24 +126,10 @@ app.get('/drug',function(req,res,next){
     return;
   } 
 });
-//ORDER page route          *NOT DONE*
-app.get('/order',function(req,res,next){
-  var context = {};
-  if (req.query.length == undefined) {
-    pool.query("SELECT * FROM `order`", function(err, rows, fields){
-      if(err){
-        next(err);
-        return;
-      }
-      context.results = rows;
-      res.render('order', context);
-      return;
-    });
-  }
-});
+
 //PATIENT page route
 app.get('/patient',function(req,res,next){
-  var context = {};
+  //var context = {};
   var queryString;
   var selectString = "SELECT `id`, `fname`, `lname`, `dob`, `email`, `address`, `phone`, `gender` FROM `patient` ORDER BY `lname`";
   var params = [];
@@ -168,7 +155,7 @@ app.get('/patient',function(req,res,next){
     else{
       queryString += " ORDER BY `lname`";
     }
-    params = [req.query.fname, req.query.lname, req.query.phone, req.query.email, req.query.dob, req.query.gender];
+    params = [req.query.id, req.query.fname, req.query.lname, req.query.phone, req.query.email, req.query.dob, req.query.gender];
     selectQuer(queryString,res, next, params);
   }
   else if(req.query.patientid == "true"){
@@ -181,8 +168,8 @@ app.get('/patient',function(req,res,next){
     params = [req.query.id];
     sqlQuer(queryString, params, selectString, res, next, selectQuer);
   }
-  else if(req.query.updated == "true"){   //update function
-    queryString = "UPDATE `id`, `fname`, `lname`, `dob`, `email`, `address`, `phone`, `gender` FROM `patient` WHERE `id` = ?"  ;
+  else if(req.query.update == "true"){   //update function
+    queryString = "UPDATE `id`, `fname`, `lname`, `dob`, `email`, `address`, `phone`, `gender` FROM `patient` WHERE `id` = ?";
     //params = [];
     if (req.query.dob != "" && req.query.gender != "") {
       queryString += " AND `dob` = ? AND `gender` = ? ORDER BY `lname`";
@@ -204,6 +191,58 @@ app.get('/patient',function(req,res,next){
     return;
   } 
 });
+
+//ORDER page route          *NOT DONE*
+app.get('/order',function(req,res,next){
+  //var context = {};
+  var params = [];
+  var selectString = "SELECT `id`, `name`, `drug_name`, `ndc` FROM `pharmacy` = ? ORDER BY `name`";
+  /*if (req.query.length == undefined) {
+    pool.query("SELECT * FROM `order`", function(err, rows, fields){
+      if(err){
+        next(err);
+        return;
+      }
+      context.results = rows;
+      res.render('order', context);
+      return;
+    });
+  }*/
+  if(req.query.read == "true"){
+    params = [req.query.pharmacy];
+    selectQuer(selectString, res, next, params);
+  } // insert values from requst into database
+  else if(req.query.create == "true"){
+    queryString = "INSERT INTO `order` (`id`, `lname`, `fname`, `name`, `ndc`, `pharmacy`) VALUES (?, ?, ?, ?, ?, ?)"; 
+    params = [req.query.fname, req.query.lname, req.query.ndc, req.query.name, req.query.pharmacy, req.query.id];
+    sqlQuer(queryString, params, selectString, res, next, selectQuer);
+  }
+  else if(req.query.search == "true"){
+    queryString = "SELECT `id`, `fname`, `lname`, `name` FROM `order` WHERE `lname` REGREXP ? AND `fname` REGREXP ? AND `name` REGREXP ?";
+    if(req.query.name != ""){
+      queryString += "AND `name` = ? ORDER BY `lname`";
+    }
+    else{
+      queryString += "ORDER BY `lname`";
+    }
+    params = [req.query.fname, req.query.lanme, req.query.id, req.query.name];
+    selectQuer(queryString,res, next, params);
+  }
+  else if(req.query.orderid == "true"){
+    queryString = "SELECT `id`, `fname`, `lname`, `name` FROM `order` WHERE `id` = ?";
+    params = [req.query.id];
+    selectQuer(queryString, res, next, params);
+  }
+  else if(req.query.delete == "true"){
+    queryString = "DELETE FROM `order` WHERE `id` = ?";
+    params = [req.query.id];
+    sqlQuer(queryString, params, selectString, res, next, selectQuer);
+  }
+  /*else if(req.query.update == "true"){  
+    queryString = "UPDATE `id`, `fname`, `lname`, `name` FROM `order` WHERE `id` =?";
+  }*/
+});
+
 //SALE page route
 app.get('/sale',function(req,res,next){
   var context = {};
@@ -230,6 +269,7 @@ app.use(function(err, req, res, next) {
     res.status(500);
     res.render('500');
 });
+
 //start server
 app.listen(app.get('port'), function() {
     console.log('Express started on http://localhost:' + app.get('port') + '; press Ctrl-C to terminate.');
