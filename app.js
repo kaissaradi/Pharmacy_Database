@@ -241,6 +241,10 @@ app.get('/order',function(req,res,next){
   /*else if(req.query.update == "true"){  
     queryString = "UPDATE `id`, `fname`, `lname`, `name` FROM `order` WHERE `id` =?";
   }*/
+  else{//if no relevant query was made, the home page is served 
+    res.render('order');
+    return;
+  } 
 });
 
 //SALE page route
