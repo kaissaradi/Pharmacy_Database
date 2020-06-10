@@ -249,8 +249,10 @@ app.get('/order',function(req,res,next){
 
 //SALE page route
 app.get('/sale',function(req,res,next){
-  var context = {};
-  if (req.query.length == undefined) {
+  //var context = {};
+  var params = [];
+  var selectString = "SELECT `id`, `order`, `time` FROM `order` = ? ORDER BY `id`";
+  /*if (req.query.length == undefined) {
     pool.query("SELECT * FROM `sale`", function(err, rows, fields){
       if(err){
         next(err);
@@ -260,7 +262,28 @@ app.get('/sale',function(req,res,next){
       res.render('sale', context);
       return;
     });
+  }*/
+  if(req.query.read == "true"){
+    params = [req.query.pharmacy];
+    selectQuer(selectString, res, next, params);
   }
+  else if(req.query.create == "true"){
+    queryString = "INSERT INTO `sale` (`id`, `order`, `time`, `pharmacy`) VALUES (?, ?, ?, ?)";
+    params = [req.quer.id, req.query.order, req.query.time, req.query.pharmacy];
+    sqlQuer(queryString, params, selectString, res, next, selectQuer);
+  }
+  //else if(req.query.search){};
+  else if(req.query.update == "true"){
+    queryString = "UPDATE `sale` SET `id` = ?, `order` = ?, `time` = ? WHERE `pharmacy` = ?";
+    
+    console.log(req.query);
+    params = [req.query.pharmacy, req.query.id, req.query.order, req.query.time];
+    sqlQuer(queryString, params, selectString, res, next, selectQuer);
+  }
+  else{//if no relevant query was made, the home page is served 
+    res.render('sale');
+    return;
+  } 
 });
 //error handling
 app.use(function(req, res) {
