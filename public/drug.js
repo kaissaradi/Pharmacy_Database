@@ -17,6 +17,9 @@ document.getElementById('reset_btn').addEventListener('click', function(event){
 document.getElementById('add_drug_btn').addEventListener('click', function(event){
   createReq();
   event.preventDefault();
+   setTimeout(function(){
+    readReq(); 
+  }, 250);
 });
 
 //Search Event - create a get request with the users query to SELECT FROM the table
@@ -24,15 +27,25 @@ document.getElementById('search_drug_btn').addEventListener('click', function(ev
   searchReq();
   event.preventDefault();
 });
-//Select Event - create a get to view patient prescriptions in a new table
+//update Event
 document.body.addEventListener('click', function(event){
   if(event.srcElement.className == "update btn dark-green"){
     console.log(event.srcElement.id);
     updateDrug(event.srcElement.id);
+    setTimeout(function(){
+      readReq(); 
+    }, 250);
   }
-  setTimeout(function(){
-    readReq(); 
-  }, 250);
+});
+
+//Delete Event - delete drug that was alicked
+document.body.addEventListener('click', function(event){
+  if(event.srcElement.className == "delete btn dark-green"){
+    deleteReq(event.srcElement.id);
+    setTimeout(function(){
+      readReq(); 
+    }, 250);
+  }
 });
 
 /* *********************************
@@ -92,6 +105,12 @@ function createTable(resp, table_id){
       var editButton = addElement(newRow, 'Input', 'update btn dark-green', row.ndc)
       editButton.setAttribute("type", "button");
       editButton.value = "Update";
+      editButton.style.float = "left";
+      //create delete button
+      var deleteButton = addElement(newRow, 'Input', 'delete btn dark-green', row.ndc);
+      deleteButton.setAttribute("type", "button");
+      deleteButton.value = "Delete";
+      deleteButton.style.float = "right";
     }
   }
 }
@@ -176,6 +195,23 @@ function updateDrug(ndc){
     if(req.status >= 200 && req.status < 400){
       var response = JSON.parse(req.responseText); 
       createTable(response, "drugs");    //display the response information in the pharmacy table
+    }
+    else {
+      console.log("error");
+    }
+  });
+  req.send(payload);
+}
+
+function deleteReq(ndc){
+  var req = new XMLHttpRequest(); 
+  //create query string with regular expressions
+  var payload = "/drug?delete=true&ndc="+ndc+"&pharmacy=1";
+  //send get request
+  req.open("GET",payload, true);                 
+  req.addEventListener('load', function(){                       
+    if(req.status >= 200 && req.status < 400){
+      console.log("delete");
     }
     else {
       console.log("error");

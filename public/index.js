@@ -27,7 +27,7 @@ document.getElementById('search_pharmacy_btn').addEventListener('click', functio
   event.preventDefault();
 });
 
-//Select Event - create a get to view patient prescriptions in a new table
+//Delete Event - delete pharmacy that was alicked
 document.body.addEventListener('click', function(event){
   if(event.srcElement.className == "delete btn dark-green"){
     deleteReq(event.srcElement.id);
@@ -92,7 +92,6 @@ function createTable(resp, table_id){
       var editButton = addElement(newRow, 'Input', 'edit btn dark-green', row.dea)
       editButton.setAttribute("type", "button");
       editButton.value = "Edit";
-      editButton.style.float = "left";
       //create delete button
       var deleteButton = addElement(newRow, 'Input', 'delete btn dark-green', row.dea);
       deleteButton.setAttribute("type", "button");

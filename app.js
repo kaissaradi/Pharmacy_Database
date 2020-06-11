@@ -48,15 +48,14 @@ function selectQuer(quer, res, next, params){
   });
   }
 }
-//function to make a database query, then display selected rows sing the callback function
+//function to make a database query, then display selected rows using the callback function
 function sqlQuer(quer, params, selectString, res, next, selectQuer){
   pool.query(quer, params, function(err){
     if(err){
       next(err);
       return;
     }
-    console.log("success");
-    selectQuer(selectString, res, next);
+    selectQuer(selectString, res, next, params);
     return;
   });
 }
@@ -106,18 +105,17 @@ app.get('/drug',function(req,res,next){
     sqlQuer(queryString, params, selectString, res, next, selectQuer);
   }
   else if (req.query.search == "true"){
-    queryString = "SELECT `name`, `ndc`, `strength`, `price`, `qty` FROM `drug` WHERE `pharmacy` = ? AND `name` REGEXP ? AND `ndc` REGEXP ? AND `strength` REGEXP ?";
+    queryString = "SELECT `name`, `ndc`, `strength`, `price`, `qty` FROM `drug` WHERE `pharmacy` = ? AND `name` REGEXP ? AND `ndc` REGEXP ? AND `strength` REGEXP ? ORDER BY `name`";
     params = [req.query.pharmacy, req.query.name, req.query.ndc, req.query.strength];
     selectQuer(queryString, res, next, params);
   }
   else if(req.query.delete == "true"){//delete
-    querystring = "";          //*write delete query
+    queryString = "DELETE from `drug` where `ndc` = ? AND `pharmacy` = ?";
+    params = [req.query.ndc, req.query.pharmacy];
     sqlQuer(queryString, params, selectString, res, next, selectQuer);
   }
   else if(req.query.update == "true"){  // add update
       queryString = "UPDATE `drug` SET `qty` = ? WHERE `pharmacy` = ? AND `ndc` = ?";
-      selectString = "SELECT `ndc`, `name`, `strength`, `price`, `qty` FROM `drug` WHERE `pharmacy` = " + req.query.pharmacy + " ORDER BY `name`";
-      console.log(req.query);
       params = [req.query.qty, req.query.pharmacy, req.query.ndc]; 
       sqlQuer(queryString, params, selectString, res, next, selectQuer);
   }
