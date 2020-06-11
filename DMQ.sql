@@ -1,6 +1,13 @@
 /*Home Page:*/
-/*select pharmacies with name/number/DEA*/
-SELECT * FROM pharmacy WHERE (name = :nameinput OR phone = :phoneinput OR DEA = :deainput);
+/*SELECT pharmacies with name/number/DEA*/
+SELECT `name`, `dea`, `address`, `phone`, `fax` FROM `pharmacy`
+/* SEARCH pharmacy table */
+SELECT `name`, `dea`, `address`, `phone`, `fax` FROM `pharmacy` WHERE `name` REGEXP :input AND `dea` REGEXP :input AND `address` REGEXP :input AND `phone` REGEXP :input AND `fax` REGEXP :input
+/* INSERT into pharamacy table */
+INSERT INTO `pharmacy` (`name`, `dea`, `address`, `phone`, `fax`) VALUES (?, ?, ?, ?, ?)
+/* DELETE from pharmacy */
+DELETE FROM `pharmacy` WHERE dea = ?
+
 /*# count number of prescriptions where order status is completed today*/
 SELECT COUNT(DISTINCT RX) FROM (
     SELECT * FROM prescription 
@@ -22,18 +29,35 @@ GROUP BY order_id
 INSERT INTO `prescription` (`RX`, `pharmacy_DEA`, `drug_name`, `drug_strength`, `prescritpion_date`)VALUES
 (1, :inputDEA, :inputname, inputStrength, :inputDate);
 
+/* Drug page: */
+/* SELECT from drug table */
+SELECT `ndc`, `name`, `strength`, `price`, `qty` FROM `drug` WHERE `pharmacy` = ? ORDER BY `name`
+/* INSERT into drug table */
+INSERT INTO `drug` (`name`, `ndc`, `strength`, `price`, `qty`, `pharmacy`) VALUES (?, ?, ?, ?, ?, ?)
+/* SEARCH drug table */
+SELECT `name`, `ndc`, `strength`, `price`, `qty` FROM `drug` WHERE `pharmacy` = ? AND `name` REGEXP ? AND `ndc` REGEXP ? AND `strength` REGEXP ? ORDER BY `name`
+/* DELETE from drug table */
+DELETE from `drug` where `ndc` = ? AND `pharmacy` = ?
+/* UPDATE drug table */
+UPDATE `drug` SET `qty` = ? WHERE `pharmacy` = ? AND `ndc` = ?
+
+
 /*Patients:*/
-/*#select patients with name/number/dob*/
-SELECT * FROM patient WHERE (patient_fname = :nameinput OR patient_DOB = :inputDOB OR phone = :inputphone);
+/*#SELECT patients with name/number/dob*/
+SELECT `id`, `fname`, `lname`, `dob`, `email`, `address`, `phone`, `gender` FROM `patient` ORDER BY `lname`
+/* SEARCH patients table */
+SELECT `id`, `fname`, `lname`, `dob`, `email`, `address`, `phone`, `gender` FROM `patient` WHERE `fname` REGEXP ? AND `lname` REGEXP ? AND `phone` REGEXP ? AND `email` REGEXP ?
 /*#select all prescriptions for a patient*/
-SELECT * FROM prescription WHERE patient_name = :inputname
+SELECT `name`, `strength`, `price` FROM `drug` 
+JOIN `prescription` ON `prescription`.`drug` = `drug`.`ndc` 
+JOIN `patient` ON `patient`.`id` = `prescription`.`patient`
+WHERE `patient`.`id` = ? 
 /*#update patient information for patient*/
-UPDATE `patient`
-SET (patient_fname = :inputfname, patient_lname, :input_fname)
-WHERE condition;
+UPDATE `id`, `fname`, `lname`, `dob`, `email`, `address`, `phone`, `gender` FROM `patient` WHERE `id` = ?
 /*#create new patient*/
-INSERT INTO `patient` (`patient_lname`, `patient_fname`, `patient_DOB`, `patient_age`, `patient_gender`, `patient_address`, `patient_email`) VALUES
-(:inputfname, :inputlname, :inputdate, :inputage, :inputgender, :inputaddres, :inputemail);
+INSERT INTO `patient` (`lname`, `fname`, `dob`, `gender`, `address`, `email`, `phone`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+/* DELETE patient */
+DELETE FROM `patient` WHERE `id` = ?
 
 /*Orders:*/
 /*#select all orders where status is not complete, lookup by name, drug*/

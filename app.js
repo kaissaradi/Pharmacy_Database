@@ -135,12 +135,13 @@ app.get('/patient',function(req,res,next){
     selectQuer(selectString, res, next);
   }//create query, inserts values from request into database
   else if (req.query.create == "true"){
-    queryString = ""      //*WRITE QUERY TO INSERT
-    params = [req.query.fname,req.query.lname, req.query.dob, req.query.email, req.query.address, req.query.phone, req.query.gender];
+    queryString = "INSERT INTO `patient` (`lname`, `fname`, `dob`, `gender`, `address`, `email`, `phone`) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    params = [req.query.lname,req.query.fname, req.query.dob, req.query.gender, req.query.address, req.query.email, req.query.phone];
     sqlQuer(queryString,params,selectString,res,next,selectQuer);
   }
   else if (req.query.search == "true"){
     queryString = "SELECT `id`, `fname`, `lname`, `dob`, `email`, `address`, `phone`, `gender` FROM `patient` WHERE `fname` REGEXP ? AND `lname` REGEXP ? AND `phone` REGEXP ? AND `email` REGEXP ?";
+    params = [req.query.fname, req.query.lname, req.query.phone, req.query.email, req.query.dob, req.query.gender];
     if (req.query.dob != "" && req.query.gender != "") {
       queryString += " AND `dob` = ? AND `gender` = ? ORDER BY `lname`";
     }
@@ -153,11 +154,10 @@ app.get('/patient',function(req,res,next){
     else{
       queryString += " ORDER BY `lname`";
     }
-    params = [req.query.id, req.query.fname, req.query.lname, req.query.phone, req.query.email, req.query.dob, req.query.gender];
     selectQuer(queryString,res, next, params);
   }
   else if(req.query.patientid == "true"){
-    queryString = "SELECT `id`, `fname`, `lname`, `dob`, `email`, `address`, `phone`, `gender` FROM `patient` WHERE `id` = ?";
+    queryString = "SELECT `rx`, `name`, `strength`, `price` FROM `drug` JOIN `prescription` ON `prescription`.`drug` = `drug`.`ndc` JOIN `patient` ON `patient`.`id` = `prescription`.`patient` WHERE `patient`.`id` = ?" 
     params = [req.query.id];
     selectQuer(queryString, res, next, params);
   }
