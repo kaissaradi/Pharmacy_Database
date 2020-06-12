@@ -62,7 +62,7 @@ CREATE TABLE `order` (
 --
 
 INSERT INTO `order` (`id`, `rx`, `status`, `time`) VALUES
-(1, 1, 'Incomplete', '2020-05-26 23:26:07');
+(1, 1, 'Complete', '2020-05-26 23:26:07');
 
 -- --------------------------------------------------------
 

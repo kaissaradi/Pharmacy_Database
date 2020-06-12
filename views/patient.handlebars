@@ -1,6 +1,6 @@
 <div class="container-fluid" id="body">
 <form action="submit" id="insert_patient_form">
-  <legend class="">Search Patients</legend>
+  <legend class="">Add Patients</legend>
   <div class="form-group row">
     <label for="add_patient_btn" class="col-form-label">Last Name</label>
     <div class="col-2">
@@ -28,7 +28,6 @@
     <div class="col-3">
         <input type="text" id="add_phone" class="form-control" placeholder="888-555-555"></label>
     </div>
-
     <label for="add_patient_btn" class="col-form-label">Gender</label>
     <div class="col-3">
         <input type="text" id="add_gender" class="form-control" placeholder="Male"></label>
@@ -36,7 +35,6 @@
     <button type="submit" id="add_patient_btn" class="btn dark-green">Add</button>
   </div>
 </form>
-
 <form action="submit" id="search_patient_form">
   <legend class="">Search Patients</legend>
   <div class="form-group row">
@@ -44,12 +42,10 @@
     <div class="col-3">
         <input type="text" id="search_lname" class="form-control" placeholder="Smith">
     </div><br>
-
     <label for="search_patient_btn" class="col-form-label">First Name</label>
     <div class="col-3">
         <input type="text" id="search_fname" class="form-control" placeholder="Bob">
     </div>
-
     <label for="search_patient_btn" class="col-form-label">DOB</label>
     <div class="col-3">
         <input type="date" id="search_dob" class="form-control">
@@ -60,12 +56,10 @@
     <div class="col-3">
         <input type="email" id="search_email" class="form-control" placeholder="saradik@oregonstate.edu"></label>
     </div>
-
     <label for="search_patient_btn" class="col-form-label">Phone</label>
     <div class="col-3">
         <input type="text" id="search_phone" class="form-control" placeholder="888-555-555"></label>
     </div>
-
     <label for="search_patient_btn" class="col-form-label">Gender</label>
     <div class="col-3">
         <input type="text" id="search_gender" class="form-control" placeholder="Male"></label>
@@ -76,45 +70,11 @@
     </div>
   </div>
 </form>
-<form class="col-12" id="update">
-  <legend class="">Update Patient Info</legend>
-  <div class="form-group row">
-      <label for="updateP" class="col-form-label">Last Name</label>
-      <div class="col-3">
-          <input type="text" id="fist" class="form-control" placeholder="Smith">
-      </div><br>
-      <label for="updateP" class="col-form-label">First Name</label>
-      <div class="col-3">
-          <input type="text" id="last" class="form-control" placeholder="Bob">
-      </div>
-      <label for="updateP" class="col-form-label">DOB</label>
-      <div class="col-3">
-          <input type="date" id="last" class="form-control">
-      </div>
-  </div>
-  <div class="form-group row">
-      <label for="updateP" class="col-form-label">Email</label>
-      <div class="col-3">
-          <input type="text" id="email" class="form-control" placeholder="saradik@oregonstate.edu"></label>
-      </div>
-      <label for="updateP" class="col-form-label">Phone</label>
-      <div class="col-3">
-          <input type="text" id="phone" class="form-control" placeholder="888-555-555"></label>
-      </div>
-      <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" id="gender" id="male" value="male">
-          <label class="form-check-label" for="updateP">Male</label>
-        </div>
-        <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" id="gender" id="female" value="female">
-          <label class="form-check-label" for="updateP">Female</label>
-        </div>
-      <button type="submit" id="updateP" class="btn dark-green">Update</button>
-  </div>
-</form>
 <legend id="table_legend"></legend>
 <div class="table-responsive">
-  <table class="table table-bordered table-hover table-dark" id="patient_table"></table>
+  <table class="table table-bordered table-hover table-dark" id="patient_table">
+    {{!-- Query inserted here --}}
+  </table>
 </div>
 </div>
 <script src="./patient.js"><{{!}}/script>

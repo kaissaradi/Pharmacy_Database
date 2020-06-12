@@ -8,15 +8,12 @@ body{
     text-align: center;
     background-color: #d2e0d980;
 }
-
 a{
     color: antiquewhite;
 }
-
 legend{
     text-align: left;
 }
-
 footer {
     position: fixed;
     left: 0;
@@ -36,22 +33,18 @@ footer {
     width: 100%;
     border: 100px antiquewhite;
 }
-
 .table-responsive{
     height: 300px;       
     overflow-y: scroll;
     overflow-x: auto;
     border-collapse: collapse;
 }
-
 .table th{
     position: sticky;
     top: 0;
     background-color: rgb(21, 197, 83);
     border: 0px;
 }
-
-
 /* colors */
 .light-green{
     background-color:  rgb(21, 197, 83);

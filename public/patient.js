@@ -73,7 +73,7 @@ function createTable(resp, table_id){
   th.scope = "col";
   var th = addElement(thead, 'th', undefined, undefined, 'Address');
   th.scope = "col";
-  var th = addElement(thead, 'th', undefined, undefined, 'Update');
+  var th = addElement(thead, 'th', undefined, undefined, 'View Prescriptions');
   th.scope = "col";
   //create table body with each row
   var tbody = addElement(newTable, 'tbody');

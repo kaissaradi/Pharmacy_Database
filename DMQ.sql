@@ -8,27 +8,6 @@ INSERT INTO `pharmacy` (`name`, `dea`, `address`, `phone`, `fax`) VALUES (?, ?, 
 /* DELETE from pharmacy */
 DELETE FROM `pharmacy` WHERE dea = ?
 
-/*# count number of prescriptions where order status is completed today*/
-SELECT COUNT(DISTINCT RX) FROM (
-    SELECT * FROM prescription 
-    LEFT JOIN  order ON prescription.RX = order.RX)
-WHERE status = completed AND date = :todays-date;
-/*# count number of prescriptions where order status is not completed*/
-SELECT COUNT(DISTINCT RX) FROM (
-    SELECT * FROM prescription 
-    LEFT JOIN  order ON prescription.RX = order.RX)
-WHERE status = incomplete;
-/*#order that is most overdue*/
-SELECT order_id, MIN(order_time) FROM (
-    SELECT * FROM prescription 
-    LEFT JOIN  order ON prescription.RX = order.RX)
-WHERE status = incomplete
-GROUP BY order_id
-)
-/*#create new prescription with patient, drug*/
-INSERT INTO `prescription` (`RX`, `pharmacy_DEA`, `drug_name`, `drug_strength`, `prescritpion_date`)VALUES
-(1, :inputDEA, :inputname, inputStrength, :inputDate);
-
 /* Drug page: */
 /* SELECT from drug table */
 SELECT `ndc`, `name`, `strength`, `price`, `qty` FROM `drug` WHERE `pharmacy` = ? ORDER BY `name`
@@ -40,7 +19,6 @@ SELECT `name`, `ndc`, `strength`, `price`, `qty` FROM `drug` WHERE `pharmacy` = 
 DELETE from `drug` where `ndc` = ? AND `pharmacy` = ?
 /* UPDATE drug table */
 UPDATE `drug` SET `qty` = ? WHERE `pharmacy` = ? AND `ndc` = ?
-
 
 /*Patients:*/
 /*#SELECT patients with name/number/dob*/
@@ -59,14 +37,15 @@ INSERT INTO `patient` (`lname`, `fname`, `dob`, `gender`, `address`, `email`, `p
 /* DELETE patient */
 DELETE FROM `patient` WHERE `id` = ?
 
-/*Orders:*/
+/*Orders page:*/
 /*#select all orders where status is not complete, lookup by name, drug*/
-SELECT * FROM prescription 
-LEFT JOIN  order ON prescription.RX = order.RX)
-WHERE status = incomplete
-GROUP BY order_id;
+SELECT `order`.`id`, `fname`, `lname`, `time`, `name`, `price` FROM `order` 
+JOIN `prescription` ON `order`.`rx` = `prescription`.`rx` 
+JOIN `patient` ON `prescription`.`patient` = `patient`.`id` 
+JOIN `drug` ON `prescription`.`drug` = `drug`.`ndc`
+WHERE `stats` = 'Incomplete';
 
-/*#select all rx in a order*/
+/*select all rx in a order*/
 SELECT * FROM order WHERE order_id = :inputorder;
 
 /*#create an empty order*/
@@ -78,7 +57,21 @@ VALUES(:inputrx,:inputDEA,:inputname,'incomplete',:inputprice,:inputdate);
 /*#delete prescription*/
 DELETE FROM prescription WHERE RX = :inputrx;
 
-/*Sales:*/
+/*Sales page:*/
+/* SELECT from sales table */
+SELECT `order`.`id`, `fname`, `lname`, `sale`.`time`, `name`, `price` FROM `sale`
+JOIN `order` ON `sale`.`order` = `order`.`id`
+JOIN `prescription` ON `order`.`rx` = `prescription`.`rx` 
+JOIN `patient` ON `prescription`.`patient` = `patient`.`id` 
+JOIN `drug` ON `prescription`.`drug` = `drug`.`ndc`;
+/* SELECT complete orders */
+SELECT `order`.`id`, `fname`, `lname`, `time`, `name`, `price` FROM `order` 
+JOIN `prescription` ON `order`.`rx` = `prescription`.`rx` 
+JOIN `patient` ON `prescription`.`patient` = `patient`.`id` 
+JOIN `drug` ON `prescription`.`drug` = `drug`.`ndc`
+WHERE `stats` = 'Complete';
+
+
 /*#Count number of prescriptions sold today*/
 SELECT COUNT(DISTINCT RX) FROM (
     SELECT * FROM prescription 
